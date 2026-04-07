@@ -39,7 +39,7 @@ export default function Footer() {
             <Link href="/" className="font-display text-[22px] sm:text-[24px] font-medium tracking-tight text-accent-orange">
               sobatti
             </Link>
-            <p className="mt-4 md:mt-5 font-body text-[14px] sm:text-[15px] leading-[1.7] text-white/35 max-w-[220px]">
+            <p className="mt-4 md:mt-5 font-body text-[15px] sm:text-[17px] leading-[1.7] text-white/35 max-w-[220px]">
               Platform bimbingan IT dan mentoring proyek terlengkap dan terpercaya.
             </p>
           </div>

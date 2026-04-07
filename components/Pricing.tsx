@@ -62,7 +62,7 @@ export default function Pricing() {
   return (
     <section id="pricing" className="bg-dark-surface section-padding">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-        <SectionLabel number="05" title="harga" dark />
+        <SectionLabel number="06" title="harga" dark />
 
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -125,7 +125,7 @@ export default function Pricing() {
               </div>
 
               {/* Description */}
-              <p className="font-body text-[15px] sm:text-[16px] leading-[1.7] text-white/45 mb-3">
+              <p className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-white/45 mb-3">
                 {plan.description}
               </p>
 

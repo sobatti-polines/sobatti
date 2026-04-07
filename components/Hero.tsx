@@ -94,7 +94,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 md:mt-8 mx-auto max-w-[520px] font-body text-[16px] sm:text-[18px] leading-[1.7] text-foreground/50"
+            className="mt-6 md:mt-8 mx-auto max-w-[520px] font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
           >
             Bimbingan belajar & mentoring proyek terstruktur untuk meningkatkan
             kemampuan teknis Anda secara nyata.

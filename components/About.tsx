@@ -30,7 +30,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-body text-[16px] sm:text-[17px] leading-[1.7] text-foreground/55"
+              className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
             >
               SobatTi hadir untuk menyediakan layanan pembelajaran dan mentoring IT berkualitas tinggi bagi individu yang ingin meningkatkan kompetensi di bidang teknologi. Kami memberikan pendampingan terstruktur dalam peningkatan keterampilan dan penyelesaian proyek, memastikan setiap peserta mendapatkan hasil yang terukur.
             </motion.p>
@@ -39,7 +39,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-body text-[16px] sm:text-[17px] leading-[1.7] text-foreground/55"
+              className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
             >
               Kami membangun lingkungan belajar kolaboratif yang menghubungkan peserta dengan mentor berpengalaman, sekaligus menyediakan solusi praktis yang disesuaikan dengan kebutuhan digital masing-masing individu.
             </motion.p>
