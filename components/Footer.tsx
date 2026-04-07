@@ -31,15 +31,15 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-dark-surface pt-20 pb-10">
-      <div className="mx-auto max-w-[1200px] px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+    <footer className="bg-dark-surface pt-16 pb-8 md:pt-20 md:pb-10">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8">
           {/* Brand column */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="font-display text-[24px] font-medium tracking-tight text-accent-orange">
+          <div className="col-span-2 sm:col-span-2 lg:col-span-1">
+            <Link href="/" className="font-display text-[22px] sm:text-[24px] font-medium tracking-tight text-accent-orange">
               sobatti
             </Link>
-            <p className="mt-5 font-body text-[15px] leading-[1.7] text-white/35 max-w-[220px]">
+            <p className="mt-4 md:mt-5 font-body text-[14px] sm:text-[15px] leading-[1.7] text-white/35 max-w-[220px]">
               Platform bimbingan IT dan mentoring proyek terlengkap dan terpercaya.
             </p>
           </div>
@@ -47,15 +47,15 @@ export default function Footer() {
           {/* Link columns */}
           {footerLinks.map((col) => (
             <div key={col.heading}>
-              <h4 className="font-sans text-[12px] font-bold tracking-[0.2em] uppercase text-white/25 mb-6">
+              <h4 className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.2em] uppercase text-white/25 mb-5 md:mb-6">
                 {col.heading}
               </h4>
-              <ul className="space-y-3.5">
+              <ul className="space-y-3 md:space-y-3.5">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="font-sans text-[15px] font-medium text-white/45 transition-colors hover:text-white"
+                      className="font-sans text-[14px] sm:text-[15px] font-medium text-white/45 transition-colors hover:text-white"
                     >
                       {link.label}
                     </Link>
@@ -67,12 +67,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="rule-dark mt-16 mb-0" />
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
-          <p className="font-sans text-[14px] font-medium text-white/25">
+        <div className="rule-dark mt-12 md:mt-16 mb-0" />
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 md:pt-8">
+          <p className="font-sans text-[13px] sm:text-[14px] font-medium text-white/25">
             © {new Date().getFullYear()} sobatti. hak cipta dilindungi.
           </p>
-          <p className="font-sans text-[14px] font-medium text-white/25">
+          <p className="font-sans text-[13px] sm:text-[14px] font-medium text-white/25">
             bimbingan belajar & mentoring proyek IT
           </p>
         </div>

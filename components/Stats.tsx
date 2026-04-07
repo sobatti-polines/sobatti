@@ -12,8 +12,8 @@ const stats = [
 export default function Stats() {
   return (
     <section className="bg-dark-surface section-padding overflow-hidden">
-      <div className="mx-auto max-w-[1200px] px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-0">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -21,14 +21,20 @@ export default function Stats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`text-center py-8 md:py-10 ${
+              className={`text-center py-6 md:py-10 ${
                 i < stats.length - 1 ? "lg:border-r lg:border-white/[0.06]" : ""
+              } ${
+                i % 2 === 0 && i < stats.length - 1 ? "md:border-r md:border-white/[0.06]" : ""
+              } ${
+                i === 0 ? "border-r border-white/[0.06] md:border-r-0" : ""
+              } ${
+                i === 1 ? "border-b border-white/[0.06] md:border-b-0" : ""
               }`}
             >
-              <div className="font-display text-[clamp(36px,5vw,56px)] font-normal leading-[1.00] tracking-[-0.02em] text-white">
+              <div className="font-display text-[clamp(28px,6vw,56px)] font-normal leading-[1.00] tracking-[-0.02em] text-white">
                 {stat.value}
               </div>
-              <div className="mt-3 font-sans text-[12px] font-semibold tracking-[0.18em] uppercase text-white/30">
+              <div className="mt-2 md:mt-3 font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase text-white/30">
                 {stat.label}
               </div>
             </motion.div>

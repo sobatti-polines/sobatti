@@ -47,7 +47,7 @@ function ServiceRow({
 }) {
   return (
     <>
-      <div className="h-px w-full bg-foreground/[0.06] col-span-3" />
+      <div className="h-px w-full bg-foreground/[0.06] col-span-1 md:col-span-3" />
       {/* Title column */}
       <motion.div
         initial={{ opacity: 0, x: -30 }}
@@ -58,12 +58,12 @@ function ServiceRow({
           delay: index * 0.05,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="group flex items-baseline gap-4 py-10 md:py-12 cursor-default"
+        className="group flex items-baseline gap-3 md:gap-4 py-8 md:py-12 cursor-default"
       >
-        <span className="font-sans text-[13px] font-semibold text-foreground/25 tabular-nums">
+        <span className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/25 tabular-nums shrink-0">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <h3 className="font-display text-[24px] md:text-[28px] font-normal leading-[1.15] tracking-[-0.01em] text-foreground group-hover:text-accent-orange transition-colors duration-300">
+        <h3 className="font-display text-[20px] sm:text-[24px] md:text-[28px] font-normal leading-[1.15] tracking-[-0.01em] text-foreground group-hover:text-accent-orange transition-colors duration-300">
           {service.title}
         </h3>
       </motion.div>
@@ -78,7 +78,7 @@ function ServiceRow({
           delay: index * 0.05 + 0.1,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="font-body text-[17px] leading-[1.7] text-foreground/50 py-10 md:py-12"
+        className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50 py-8 md:py-12"
       >
         {service.description}
       </motion.p>
@@ -93,12 +93,12 @@ function ServiceRow({
           delay: index * 0.05 + 0.2,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="flex flex-wrap gap-2 justify-end py-10 md:py-12 self-start"
+        className="flex flex-wrap gap-2 justify-start md:justify-end py-8 md:py-12 self-start"
       >
         {service.tags.map((tag) => (
           <span
             key={tag}
-            className="font-sans text-[12px] font-semibold tracking-[0.05em] text-foreground/40 bg-cool-gray px-3 py-1.5 rounded-full"
+            className="font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.05em] text-foreground/40 bg-cool-gray px-3 py-1.5 rounded-full"
           >
             {tag}
           </span>
@@ -112,8 +112,6 @@ function ServiceRow({
 function ScrollProgressLine() {
   const ref = useRef<HTMLDivElement>(null);
 
-  // Track the parent section scroll using the wrapper div as both target AND container
-  // This avoids the "non-static position" warning by not using target at all
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -124,7 +122,7 @@ function ScrollProgressLine() {
   return (
     <div
       ref={ref}
-      className="fixed top-[72px] left-0 right-0 z-40 h-[2px] bg-transparent"
+      className="fixed top-[64px] md:top-[72px] left-0 right-0 z-40 h-[2px] bg-transparent"
     >
       <motion.div
         className="h-full bg-accent-orange origin-left"
@@ -138,7 +136,7 @@ export default function Services() {
   return (
     <section id="services" className="relative bg-white section-padding">
       <ScrollProgressLine />
-      <div className="mx-auto max-w-[1200px] px-6">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
         <SectionLabel number="03" title="layanan" />
 
         <motion.h2
@@ -146,7 +144,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(32px,4.5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-foreground max-w-[550px] mb-16"
+          className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-foreground max-w-[550px] mb-12 md:mb-16"
         >
           layanan pembelajaran kami
         </motion.h2>
@@ -156,7 +154,7 @@ export default function Services() {
           {services.map((service, i) => (
             <ServiceRow key={service.title} service={service} index={i} />
           ))}
-          <div className="rule col-span-3" />
+          <div className="rule col-span-1 md:col-span-3" />
         </div>
       </div>
     </section>

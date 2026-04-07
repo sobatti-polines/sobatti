@@ -1,17 +1,48 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+
+const words = ["Web", "Video", "UI/UX", "IoT", "Mobile"];
+
+function RotatingWord() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="inline-block relative text-accent-orange" style={{ minWidth: "4ch" }}>
+      <AnimatePresence mode="popLayout">
+        <motion.span
+          key={words[index]}
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -40, opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-block"
+        >
+          {words[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden">
       {/* Subtle grid pattern */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
           backgroundImage: `linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)`,
-          backgroundSize: "80px 80px",
+          backgroundSize: "60px 60px",
         }}
       />
 
@@ -20,25 +51,25 @@ export default function Hero() {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.8, ease: "easeOut", delay: 0.3 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-accent-blue/[0.06] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] rounded-full border border-accent-blue/[0.06] pointer-events-none"
       />
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.8, ease: "easeOut", delay: 0.5 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-accent-blue/[0.04] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] rounded-full border border-accent-blue/[0.04] pointer-events-none"
       />
 
-      <div className="relative z-10 mx-auto max-w-[1200px] px-6 w-full">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 w-full">
         <div className="max-w-[820px] mx-auto text-center">
           {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-8"
+            className="mb-6 md:mb-8"
           >
-            <span className="font-sans text-[12px] font-bold tracking-[0.25em] uppercase text-accent-orange bg-accent-orange/[0.06] px-4 py-2 rounded-full">
+            <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.25em] uppercase text-accent-orange bg-accent-orange/[0.06] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full">
               bimbingan IT & mentoring proyek
             </span>
           </motion.div>
@@ -48,9 +79,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-[clamp(40px,7vw,80px)] font-normal leading-[1.00] tracking-[-0.02em] text-foreground"
+            className="font-display text-[clamp(32px,8vw,80px)] font-normal leading-[1.00] tracking-[-0.02em] text-foreground"
           >
-            kuasai <span className="text-accent-orange">keahlian IT</span>
+            kuasai <RotatingWord />
             <br />
             dengan bimbingan ahli
           </motion.h1>
@@ -60,7 +91,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 mx-auto max-w-[520px] font-body text-[18px] leading-[1.7] text-foreground/50"
+            className="mt-6 md:mt-8 mx-auto max-w-[520px] font-body text-[16px] sm:text-[18px] leading-[1.7] text-foreground/50"
           >
             Bimbingan belajar & mentoring proyek terstruktur untuk meningkatkan
             kemampuan teknis Anda secara nyata.
@@ -71,14 +102,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 flex items-center justify-center gap-4"
+            className="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           >
-            <Link href="#services" className="btn btn-primary">
+            <Link href="#services" className="btn btn-primary w-full sm:w-auto">
               mulai belajar
             </Link>
             <Link
               href="#about"
-              className="btn btn-ghost text-foreground/60 hover:text-foreground"
+              className="btn btn-ghost text-foreground/60 hover:text-foreground w-full sm:w-auto"
             >
               pelajari lebih lanjut
             </Link>
@@ -86,12 +117,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — hidden on mobile */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
       >
         <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-foreground/30 font-semibold">
           gulir
