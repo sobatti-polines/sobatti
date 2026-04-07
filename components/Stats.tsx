@@ -3,8 +3,8 @@
 import { motion } from "framer-motion"
 
 const stats = [
-  { value: "100+", label: "siswa bimbingan" },
-  { value: "50+", label: "proyek selesai" },
+  { value: "50+", label: "materi" },
+  { value: "1000+", label: "cakupan" },
   { value: "5", label: "bidang teknologi" },
   { value: "100%", label: "dedikasi mentor" },
 ]

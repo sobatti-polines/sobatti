@@ -17,7 +17,10 @@ function RotatingWord() {
   }, []);
 
   return (
-    <span className="inline-block relative text-accent-orange" style={{ minWidth: "4ch" }}>
+    <span
+      className="inline-block relative text-accent-orange"
+      style={{ minWidth: "4.5ch" }}
+    >
       <AnimatePresence mode="popLayout">
         <motion.span
           key={words[index]}
@@ -125,7 +128,7 @@ export default function Hero() {
         className="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
       >
         <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-foreground/30 font-semibold">
-          gulir
+          scroll
         </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}

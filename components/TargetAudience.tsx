@@ -24,7 +24,7 @@ export default function TargetAudience() {
   return (
     <section id="audience" className="bg-dark-surface section-padding">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-        <SectionLabel number="02" title="target audiens" dark />
+        <SectionLabel number="03" title="target audiens" dark />
 
         <motion.h2
           initial={{ opacity: 0, y: 30 }}

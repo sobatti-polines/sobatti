@@ -63,7 +63,7 @@ function ServiceRow({
         <span className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/25 tabular-nums shrink-0">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <h3 className="font-display text-[20px] sm:text-[24px] md:text-[28px] font-normal leading-[1.15] tracking-[-0.01em] text-foreground group-hover:text-accent-orange transition-colors duration-300">
+        <h3 className="font-display text-[20px] sm:text-[24px] md:text-[28px] font-normal leading-[1.15] tracking-[-0.01em] text-accent-blue group-hover:text-accent-orange transition-colors duration-300">
           {service.title}
         </h3>
       </motion.div>
@@ -137,7 +137,7 @@ export default function Services() {
     <section id="services" className="relative bg-white section-padding">
       <ScrollProgressLine />
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-        <SectionLabel number="03" title="layanan" />
+        <SectionLabel number="04" title="layanan" />
 
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
