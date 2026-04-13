@@ -19,7 +19,7 @@ export default function Contact() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-foreground max-w-[550px]">
-              siap untuk
+              Siap untuk
               <span className="text-accent-orange"> memulai?</span>
             </h2>
             <p className="mt-5 md:mt-6 font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50 max-w-[440px]">
@@ -33,7 +33,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="btn btn-primary"
               >
-                hubungi via whatsapp
+                Hubungi via Whatsapp
               </Link>
               <Link
                 href="https://instagram.com/sobat.ti"
@@ -41,7 +41,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="btn btn-outline"
               >
-                ikuti instagram
+                Ikuti Instagram
               </Link>
             </div>
           </motion.div>

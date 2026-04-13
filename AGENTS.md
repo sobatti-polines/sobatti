@@ -81,3 +81,5 @@ components/
 ```
 
 Each section component is a self-contained `<section>` with its own animations and styling.
+
+

@@ -100,7 +100,11 @@ export default function SobatValues() {
             className="lg:sticky lg:top-[120px]"
           >
             <h2 className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-foreground max-w-[480px]">
-              mengapa kita{" "}
+              Mengapa{" "}
+              <span className="relative">
+                <span className="relative z-10 text-accent-orange">Kita</span>
+                <span className="absolute inset-0 bg-accent-orange/20 rotate-4 scale-y-110 scale-x-120" />
+              </span>{" "}
               <span className="hidden sm:inline">
                 <TextRotate
                   ref={textRotateRef}

@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import SectionLabel from "./SectionLabel"
-import { Check } from "lucide-react"
+import Link from "next/link";
+import { motion } from "framer-motion";
+import SectionLabel from "./SectionLabel";
+import { Check } from "lucide-react";
 
 const plans = [
   {
@@ -11,13 +11,14 @@ const plans = [
     price: "Rp25.000",
     period: "/1.5 jam",
     subtitle: "Konsultasi & Problem Solving",
-    description: "Cocok untuk klien yang sudah punya kode/proyek tapi mentok di bug tertentu atau butuh arahan logika.",
-    target: "Siswa/mahasiswa yang sedang mengerjakan tugas mandiri.",
+    description:
+      "Cocok untuk kalian yang sudah punya projet/web/aplikasi tapi mentok di bug atau butuh arahan teknis.",
+    target: "Pelajar, mahasiswa, atau pemula yang butuh panduan cepat.",
     features: [
-      "Sesi konsultasi 30-60 menit",
+      "Sesi konsultasi via WhatsApp/Zoom (30-60 menit)",
       "Bug fixing ringan (maksimal 2-3 error)",
-      "Penjelasan logika program secara garis besar",
-      "Estimasi pengerjaan cepat (1-2 hari)",
+      "Penjelasan logika kode atau konsep teknis",
+      "Estimasi solusi dalam 1-2 hari",
     ],
     cta: "konsultasi sekarang",
     highlighted: false,
@@ -27,14 +28,15 @@ const plans = [
     price: "Rp100.000",
     period: "/project",
     subtitle: "Full Project & Guidance",
-    description: "Paket terlaris untuk jasa pembuatan proyek end-to-end, seperti sistem IoT atau Web.",
-    target: "Mahasiswa tugas akhir atau klien yang butuh produk jadi.",
+    description:
+      "Paket terlaris untuk pembuatan proyek lengkap — dari website, aplikasi mobile, desain UI/UX, video editing, hingga proyek IoT.",
+    target: "Mahasiswa tugas akhir atau siapa saja yang butuh proyek jadi.",
     features: [
-      "Pembuatan program/sistem dari nol sesuai request",
-      "Dokumentasi lengkap (penjelasan kode/skema rangkaian)",
-      "Revisi terbatas (2-3 kali revisi)",
-      "Sesi bimbingan/tutorial via Zoom/Meet",
-      "Garansi maintenance 1 minggu setelah serah terima",
+      "Pembuatan proyek dari nol (Web, Mobile, UI/UX, Video, atau IoT)",
+      "Dokumentasi lengkap (kode, skema, tutorial)",
+      "Revisi terbatas (2-3 kali revisian)",
+      "Sesi bimbingan via Zoom/Meet",
+      "Garansi perbaikan 1 minggu setelah serah terima",
     ],
     cta: "pesan paket pro",
     highlighted: true,
@@ -44,19 +46,21 @@ const plans = [
     price: "Custom",
     period: "",
     subtitle: "Priority & High-Complexity",
-    description: "Untuk proyek yang sangat rumit, kebutuhan industri, atau permintaan deadline yang sangat mepet.",
-    target: "Klien profesional, UMKM, atau kebutuhan mendesak.",
+    description:
+      "Untuk proyek kompleks yang butuh integrasi multi-platform — gabungkan Web, Mobile, IoT, dan dashboard dalam satu sistem.",
+    target:
+      "Klien profesional, UMKM, atau kebutuhan mendesak dengan deadline ketat.",
     features: [
-      "Prioritas antrean (pengerjaan paling didahului)",
-      "Integrasi sistem kompleks (IoT + Cloud + Web Dashboard)",
-      "Support 24/7 hingga proyek selesai/sidang",
-      "Laporan kemajuan berkala (daily report)",
-      "Termasuk pengadaan komponen (jika proyek fisik/hardware)",
+      "Prioritas antrean (pengerjaan didahulukan)",
+      "Integrasi multi-platform (Web + Mobile + IoT + Dashboard)",
+      "Support 24/7 hingga proyek selesai atau lulus sidang",
+      "Laporan kemajuan berkala (daily/weekly report)",
+      "Termasuk pengadaan komponen hardware (jika proyek IoT)",
     ],
     cta: "hubungi kami",
     highlighted: false,
   },
-]
+];
 
 export default function Pricing() {
   return (
@@ -69,9 +73,14 @@ export default function Pricing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-white max-w-[550px] mb-12 md:mb-16"
+          className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-white max-w-[700px] mb-12 md:mb-16"
         >
-          investasi untuk masa depan digital Anda
+          Investasi untuk{" "}
+          <span className="relative">
+            <span className="relative z-10 text-white">Masa Depan</span>
+            <span className="absolute inset-0 bg-accent-orange/30 -rotate-2 scale-y-110 scale-x-120" />
+          </span>{" "}
+          digital Anda
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
@@ -98,9 +107,11 @@ export default function Pricing() {
 
               {/* Plan name */}
               <div className="mb-3 md:mb-4">
-                <span className={`font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.2em] uppercase ${
-                  plan.highlighted ? "text-accent-orange" : "text-accent-blue"
-                }`}>
+                <span
+                  className={`font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.2em] uppercase ${
+                    plan.highlighted ? "text-accent-orange" : "text-accent-blue"
+                  }`}
+                >
                   {plan.name}
                 </span>
               </div>
@@ -141,9 +152,13 @@ export default function Pricing() {
               <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10 flex-1">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <Check className={`w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] mt-0.5 shrink-0 ${
-                      plan.highlighted ? "text-accent-orange" : "text-accent-blue"
-                    }`} />
+                    <Check
+                      className={`w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] mt-0.5 shrink-0 ${
+                        plan.highlighted
+                          ? "text-accent-orange"
+                          : "text-accent-blue"
+                      }`}
+                    />
                     <span className="font-sans text-[14px] sm:text-[15px] font-medium text-white/65">
                       {feature}
                     </span>
@@ -167,5 +182,5 @@ export default function Pricing() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -13,26 +13,26 @@ const teamMembers = [
   },
   {
     name: "Rosy",
-    role: "Marketing, Grapich Designer",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    role: "Marketing, Graphic Designer",
+    bio: "Spesialis desain visual dan branding dengan pengalaman di media sosial dan konten kreatif. Fokus pada menciptakan identitas visual yang menarik dan konsisten.",
     src: "images/rosy.webp",
   },
   {
     name: "Caca",
     role: "Marketing, Graphic Designer",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    bio: "Designer muda yang passionate dalam UI design dan ilustrasi digital. Memiliki kemampuan menciptakan konten visual yang engaging untuk platform digital.",
     src: "images/caca.webp",
   },
   {
     name: "Agung",
     role: "Mentor, Graphic Designer",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    bio: "Desainer profesional dengan keahlian di berbagai tools desain. Membantu peserta memahami prinsip-prinsip desain yang efektif dan estetis.",
     src: "images/agung.webp",
   },
   {
     name: "Firman",
     role: "Mentor, IoT",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    bio: "Ahli hardware dan embedded systems dengan pengalaman proyek IoT skala besar. Fokus pada mentoring mikrokontroler dan sistem tertanam.",
     src: "images/firman.webp",
   },
 ];

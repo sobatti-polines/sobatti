@@ -4,13 +4,14 @@ import Link from "next/link"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 const navLinks = [
-  { href: "#about", label: "tentang" },
-  { href: "#audience", label: "audiens" },
-  { href: "#services", label: "layanan" },
-  { href: "#pricing", label: "harga" },
-  { href: "#contact", label: "kontak" },
+  { href: "#about", label: "Tentang" },
+  { href: "#audience", label: "Audiens" },
+  { href: "#services", label: "Layanan" },
+  { href: "#pricing", label: "Harga" },
+  { href: "#contact", label: "Kontak" },
 ]
 
 export default function Navbar() {
@@ -58,10 +59,19 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="font-display text-[20px] sm:text-[24px] font-medium tracking-tight"
+          className="flex items-center gap-2"
           onClick={() => setMobileOpen(false)}
         >
-          <span className="text-accent-blue">Sobat</span><span className="text-accent-orange">Ti</span>
+          <Image
+            src="/logo.svg"
+            alt="SobatTi"
+            width={36}
+            height={36}
+            className="w-8 h-8 sm:w-9 sm:h-9"
+          />
+          <span className="font-display text-[20px] sm:text-[24px] font-medium tracking-tight">
+            <span className="text-accent-blue">Sobat</span><span className="text-accent-orange">Ti</span>
+          </span>
         </Link>
 
         {/* Centered Nav — desktop only */}
@@ -73,7 +83,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-sans text-[14px] font-semibold px-4 py-2 rounded-full transition-all duration-200 ${
+                className={`font-sans text-[14px] font-semibold px-4 py-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 ${
                   isActive
                     ? "text-accent-orange bg-cool-gray/60"
                     : "text-foreground/50 hover:text-foreground hover:bg-cool-gray/60"
@@ -87,12 +97,12 @@ export default function Navbar() {
 
         {/* Desktop CTA */}
         <Link href="#contact" className="btn btn-primary !py-3 !px-6 !text-[14px] !hidden md:!inline-flex">
-          mulai sekarang
+          Mulai Sekarang
         </Link>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 -mr-2 rounded-full hover:bg-cool-gray/60 transition-colors"
+          className="md:hidden p-3 -mr-2 rounded-full hover:bg-cool-gray/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
@@ -118,7 +128,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-sans text-[16px] font-semibold px-4 py-3 rounded-full transition-all duration-200 ${
+                className={`font-sans text-[16px] font-semibold px-4 py-3 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 ${
                   isActive
                     ? "text-foreground bg-cool-gray/60"
                     : "text-foreground/70 hover:text-foreground hover:bg-cool-gray/60"

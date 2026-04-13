@@ -12,6 +12,7 @@
   --dark-card: #282b31;
   --light-surface: rgba(247, 247, 247, 0.88);
   --muted-blue: rgba(91, 97, 110, 0.2);
+  --white: #ffffff;
 }
 
 @theme inline {
@@ -26,6 +27,7 @@
   --color-dark-card: var(--dark-card);
   --color-light-surface: var(--light-surface);
   --color-muted-blue: var(--muted-blue);
+  --color-white: var(--white);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
   --font-body: var(--font-body);
@@ -70,7 +72,6 @@ body {
   font-size: 15px;
   line-height: 1.2;
   letter-spacing: 0.16px;
-  text-transform: lowercase;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   white-space: nowrap;
@@ -89,6 +90,11 @@ body {
   transform: translateY(-1px);
 }
 
+.btn-primary:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
 .btn-secondary {
   background-color: var(--cool-gray);
   color: var(--foreground);
@@ -101,6 +107,11 @@ body {
   border-color: var(--hover-blue);
   color: white;
   transform: translateY(-1px);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
 }
 
 .btn-outline {
@@ -116,6 +127,11 @@ body {
   transform: translateY(-1px);
 }
 
+.btn-outline:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
 .btn-ghost {
   background-color: transparent;
   color: var(--foreground);
@@ -125,6 +141,11 @@ body {
 
 .btn-ghost:hover {
   background-color: var(--cool-gray);
+}
+
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
 }
 
 /* ─── Section Spacing ─── */
@@ -153,4 +174,16 @@ body {
   background: rgba(255, 255, 255, 0.08);
   border: none;
   width: 100%;
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

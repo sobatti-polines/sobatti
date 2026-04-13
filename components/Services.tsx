@@ -146,7 +146,11 @@ export default function Services() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-foreground max-w-[550px] mb-12 md:mb-16"
         >
-          layanan pembelajaran kami
+          Layanan pembelajaran{" "}
+          <span className="relative">
+            <span className="relative z-10 text-accent-orange">Kami</span>
+            <span className="absolute inset-0 bg-accent-orange/20 rotate-4 scale-y-110 scale-x-120" />
+          </span>
         </motion.h2>
 
         {/* Service list — single grid so all columns align */}

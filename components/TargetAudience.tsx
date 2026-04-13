@@ -5,15 +5,15 @@ import SectionLabel from "./SectionLabel"
 
 const audiences = [
   {
-    tag: "pelajar",
-    headline: "fondasi teknis sejak dini",
+    tag: "Pelajar",
+    headline: "Pondasi teknis sejak dini",
     body: "Siswa sekolah menengah membutuhkan fondasi keterampilan IT yang kuat sebelum memasuki pendidikan tinggi atau dunia kerja. Kurikulum formal sering kali belum mencakup kompetensi teknis yang relevan dengan kebutuhan industri saat ini. Mentoring terstruktur membantu pelajar membangun pemahaman praktis sejak dini.",
     metric: "SMA/SMK",
     metricLabel: "tingkat pendidikan",
   },
   {
-    tag: "mahasiswa",
-    headline: "proyek profesional & portofolio",
+    tag: "Mahasiswa",
+    headline: "Proyek Profesional & Portofolio",
     body: "Mahasiswa menghadapi tuntutan penyelesaian proyek akademik, tugas akhir, dan persiapan memasuki pasar kerja yang kompetitif. Bimbingan teknis yang terfokus membantu mereka menyelesaikan proyek dengan standar profesional dan membangun portofolio yang relevan untuk karier di sektor digital.",
     metric: "S1/D3",
     metricLabel: "tingkat pendidikan",
@@ -33,7 +33,7 @@ export default function TargetAudience() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-white max-w-[550px] mb-12 md:mb-16"
         >
-          siapa yang kami layani
+          Siapa yang kami layani
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">

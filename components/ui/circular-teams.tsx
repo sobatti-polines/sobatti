@@ -42,6 +42,7 @@ export const CircularTeams = ({
   const [hoverPrev, setHoverPrev] = useState(false);
   const [hoverNext, setHoverNext] = useState(false);
   const [containerWidth, setContainerWidth] = useState(1200);
+  const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
 
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -153,9 +154,16 @@ export const CircularTeams = ({
               key={member.src}
               src={member.src}
               alt={member.name}
-              className="absolute inset-0 w-full h-full object-cover rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.2)] object-[25%]"
+              className={`absolute inset-0 w-full h-full object-cover rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.2)] object-[25%] ${
+                !imageLoaded[index] ? "opacity-0" : "opacity-100"
+              }`}
               data-index={index}
               style={getImageStyle(index)}
+              onLoad={() => setImageLoaded((prev) => ({ ...prev, [index]: true }))}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = "none";
+              }}
             />
           ))}
         </div>
@@ -217,12 +225,14 @@ export const CircularTeams = ({
                       clearInterval(autoplayIntervalRef.current);
                   }}
                   aria-label={`Go to member ${i + 1}`}
-                  className="transition-all duration-300 rounded-full"
+                  className="transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2"
                   style={{
                     width: i === activeIndex ? "2rem" : "0.5rem",
                     height: "0.5rem",
                     backgroundColor:
-                      i === activeIndex ? "#024885" : "rgba(2, 72, 133, 0.2)",
+                      i === activeIndex
+                        ? "var(--accent-blue)"
+                        : "rgba(2, 72, 133, 0.2)",
                   }}
                 />
               ))}
@@ -249,7 +259,7 @@ export const CircularTeams = ({
                 <ArrowLeft
                   size={20}
                   className="relative z-10 transition-colors duration-200"
-                  style={{ color: hoverPrev ? "#ffffff" : "#0a0b0d" }}
+                  style={{ color: hoverPrev ? "var(--white)" : "var(--foreground)" }}
                 />
               </motion.button>
               <motion.button
@@ -272,7 +282,7 @@ export const CircularTeams = ({
                 <ArrowRight
                   size={20}
                   className="relative z-10 transition-colors duration-200"
-                  style={{ color: hoverNext ? "#ffffff" : "#0a0b0d" }}
+                  style={{ color: hoverNext ? "var(--white)" : "var(--foreground)" }}
                 />
               </motion.button>
             </div>

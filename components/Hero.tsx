@@ -64,7 +64,7 @@ export default function Hero() {
       />
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 w-full">
-        <div className="max-w-[820px] mx-auto text-center">
+        <div className="max-w-[860px] mx-auto text-center">
           {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -84,9 +84,13 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="font-display text-[clamp(32px,8vw,80px)] font-normal leading-[1.00] tracking-[-0.02em] text-foreground"
           >
-            kuasai <RotatingWord />
+            Kuasai <RotatingWord />
             <br />
-            dengan bimbingan ahli
+            dengan bimbingan{" "}
+            <span className="relative">
+              <span className="relative z-10 text-accent-blue">Ahli</span>
+              <span className="absolute inset-0 bg-accent-orange/30 -rotate-2 scale-y-110 scale-x-120" />
+            </span>
           </motion.h1>
 
           {/* Sub-headline */}
@@ -108,13 +112,13 @@ export default function Hero() {
             className="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           >
             <Link href="#services" className="btn btn-primary w-full sm:w-auto">
-              mulai belajar
+              Mulai Belajar
             </Link>
             <Link
               href="#about"
               className="btn btn-ghost text-foreground/60 hover:text-foreground w-full sm:w-auto"
             >
-              pelajari lebih lanjut
+              Pelajari lebih lanjut
             </Link>
           </motion.div>
         </div>
