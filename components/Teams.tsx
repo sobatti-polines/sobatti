@@ -10,30 +10,35 @@ const teamMembers = [
     role: "Mentor, Web Dev",
     bio: "Mahasiswa D4 Teknik Rekayasa Komputer semester 6 yang suka ngoding, ngeprompt, ngajar dan ngeprompt lagi",
     src: "images/haydar.webp",
+    alt: "Haydar — Mentor Web Development di SobatTi",
   },
   {
     name: "Rosy",
     role: "Marketing, Graphic Designer",
     bio: "Spesialis desain visual dan branding dengan pengalaman di media sosial dan konten kreatif. Fokus pada menciptakan identitas visual yang menarik dan konsisten.",
     src: "images/rosy.webp",
+    alt: "Rosy — Marketing & Graphic Designer di SobatTi",
   },
   {
     name: "Caca",
     role: "Marketing, Graphic Designer",
     bio: "Designer muda yang passionate dalam UI design dan ilustrasi digital. Memiliki kemampuan menciptakan konten visual yang engaging untuk platform digital.",
     src: "images/caca.webp",
+    alt: "Caca — Marketing & Graphic Designer di SobatTi",
   },
   {
     name: "Agung",
     role: "Mentor, Graphic Designer",
     bio: "Desainer profesional dengan keahlian di berbagai tools desain. Membantu peserta memahami prinsip-prinsip desain yang efektif dan estetis.",
     src: "images/agung.webp",
+    alt: "Agung — Mentor Graphic Design di SobatTi",
   },
   {
     name: "Firman",
     role: "Mentor, IoT",
     bio: "Ahli hardware dan embedded systems dengan pengalaman proyek IoT skala besar. Fokus pada mentoring mikrokontroler dan sistem tertanam.",
     src: "images/firman.webp",
+    alt: "Firman — Mentor IoT di SobatTi",
   },
 ];
 

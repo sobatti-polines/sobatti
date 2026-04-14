@@ -56,19 +56,21 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <Suspense fallback={<LoadingFallback />}>
-        <About />
-        <SobatValues />
-        <TargetAudience />
-        <Stats />
-        <Services />
-        <Teams />
-        <Pricing />
-        <Testimonials />
-        <Contact />
-        <Footer />
-      </Suspense>
+      <main>
+        <Hero />
+        <Suspense fallback={<LoadingFallback />}>
+          <About />
+          <SobatValues />
+          <TargetAudience />
+          <Stats />
+          <Services />
+          <Teams />
+          <Pricing />
+          <Testimonials />
+          <Contact />
+        </Suspense>
+      </main>
+      <Footer />
     </>
   )
 }

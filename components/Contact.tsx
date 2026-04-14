@@ -64,6 +64,7 @@ export default function Contact() {
                 <Link
                   href="https://wa.me/62895365896938"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="font-sans text-[15px] sm:text-[17px] font-semibold text-foreground hover:text-accent-orange transition-colors"
                 >
                   +62 895-3658-96938
@@ -77,6 +78,7 @@ export default function Contact() {
                 <Link
                   href="https://instagram.com/sobat.ti"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="font-sans text-[15px] sm:text-[17px] font-semibold text-foreground hover:text-accent-orange transition-colors"
                 >
                   @sobat.ti

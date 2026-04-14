@@ -51,16 +51,20 @@ export default function Footer() {
                 {col.heading}
               </h4>
               <ul className="space-y-3 md:space-y-3.5">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="font-sans text-[14px] sm:text-[15px] font-medium text-white/45 transition-colors hover:text-white"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const isExternal = link.href.startsWith("http")
+                  return (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+                        className="font-sans text-[14px] sm:text-[15px] font-medium text-white/45 transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}

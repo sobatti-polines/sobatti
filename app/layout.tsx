@@ -63,12 +63,21 @@ export const metadata: Metadata = {
     description:
       "Bimbingan belajar & mentoring proyek IT terstruktur untuk meningkatkan kemampuan teknis Anda secara nyata.",
     countryName: "Indonesia",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "SobatTi — Bimbingan IT & Mentoring Proyek",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "SobatTi — Bimbingan IT & Mentoring Proyek",
     description:
       "Bimbingan belajar & mentoring proyek IT terstruktur untuk meningkatkan kemampuan teknis Anda secara nyata.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -81,8 +90,8 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "YOUR_GOOGLE_VERIFICATION_CODE",
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
@@ -119,6 +128,7 @@ export default function RootLayout({
       className={`${interBody.variable} ${interSans.variable} ${outfit.variable} antialiased selection:bg-accent-blue selection:text-white`}
     >
       <body className="min-h-screen bg-background font-body text-foreground">
+
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"

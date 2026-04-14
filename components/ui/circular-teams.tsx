@@ -9,6 +9,7 @@ interface TeamMember {
   role: string;
   bio: string;
   src: string;
+  alt: string;
 }
 
 interface CircularTeamsProps {
@@ -155,7 +156,7 @@ export const CircularTeams = ({
             >
               <Image
                 src={`/${member.src}`}
-                alt={member.name}
+                alt={member.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 400px"
                 className="object-cover object-[25%] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
