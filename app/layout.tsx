@@ -19,7 +19,7 @@ const outfit = Outfit({
   display: "swap",
 });
 
-const SITE_URL = "https://sobatti.com";
+const SITE_URL = "https://sobatti.web.id";
 const SITE_NAME = "SobatTi";
 
 export const metadata: Metadata = {
