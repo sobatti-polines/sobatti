@@ -1,13 +1,8 @@
 "use client";
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react"
+import Image from "next/image"
+import { ArrowLeft, ArrowRight } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface TeamMember {
   name: string;
@@ -150,21 +145,28 @@ export const CircularTeams = ({
           className="relative w-full h-96 perspective-[1000px]"
         >
           {members.map((member, index) => (
-            <img
+            <div
               key={member.src}
-              src={member.src}
-              alt={member.name}
-              className={`absolute inset-0 w-full h-full object-cover rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.2)] object-[25%] ${
-                !imageLoaded[index] ? "opacity-0" : "opacity-100"
-              }`}
               data-index={index}
               style={getImageStyle(index)}
-              onLoad={() => setImageLoaded((prev) => ({ ...prev, [index]: true }))}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = "none";
-              }}
-            />
+              className={`absolute inset-0 ${
+                !imageLoaded[index] ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              <Image
+                src={`/${member.src}`}
+                alt={member.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 400px"
+                className="object-cover object-[25%] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+                priority={index === 0}
+                onLoad={() => setImageLoaded((prev) => ({ ...prev, [index]: true }))}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = "none";
+                }}
+              />
+            </div>
           ))}
         </div>
 
@@ -186,30 +188,13 @@ export const CircularTeams = ({
               <h3 className="font-display font-normal mb-6 text-[clamp(24px,3vw,32px)] leading-[1.15] tracking-[-0.01em] text-foreground">
                 {activeMember.name}
               </h3>
-              <motion.p className="font-body leading-[1.7] text-foreground/50">
-                {activeMember.bio.split(" ").map((word, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{
-                      filter: "blur(10px)",
-                      opacity: 0,
-                      y: 5,
-                    }}
-                    animate={{
-                      filter: "blur(0px)",
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    transition={{
-                      duration: 0.22,
-                      ease: "easeInOut",
-                      delay: 0.025 * i,
-                    }}
-                    className="inline-block"
-                  >
-                    {word}&nbsp;
-                  </motion.span>
-                ))}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="font-body leading-[1.7] text-foreground/50"
+              >
+                {activeMember.bio}
               </motion.p>
             </motion.div>
           </AnimatePresence>

@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
-import Script from "next/script";
-import "./globals.css";
+import type { Metadata } from "next"
+import { Inter, Outfit } from "next/font/google"
+import Script from "next/script"
+import "./globals.css"
 
 const interBody = Inter({
   variable: "--font-body",
@@ -119,6 +119,11 @@ export default function RootLayout({
       className={`${interBody.variable} ${interSans.variable} ${outfit.variable} antialiased selection:bg-accent-blue selection:text-white`}
     >
       <body className="min-h-screen bg-background font-body text-foreground">
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
