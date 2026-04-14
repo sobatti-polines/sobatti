@@ -37,9 +37,61 @@ function RotatingWord() {
   );
 }
 
+const icons = [
+  { icon: "devicon-javascript-plain", position: "top-right" as const, delay: 0 },
+  { icon: "devicon-androidstudio-plain", position: "center-right" as const, delay: 0.5 },
+  { icon: "devicon-arduino-plain", position: "bottom-right" as const, delay: 1 },
+  { icon: "devicon-premierepro-plain", position: "top-left" as const, delay: 0.3 },
+  { icon: "devicon-canva-original", position: "center-left" as const, delay: 0.8 },
+  { icon: "devicon-figma-plain", position: "bottom-left" as const, delay: 1.2 },
+];
+
+const positionClasses = {
+  "top-right": "top-[15%] right-[18%]",
+  "center-right": "top-1/2 right-[5%] -translate-y-1/2",
+  "bottom-right": "bottom-[23%] right-[12%]",
+  "top-left": "top-[14%] left-[12%]",
+  "center-left": "top-1/2 left-[8%] -translate-y-1/2",
+  "bottom-left": "bottom-[13%] left-[12%]",
+};
+
+function FloatingIcon({ icon, position, delay }: { icon: string; position: keyof typeof positionClasses; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay: delay + 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className={`absolute pointer-events-none ${positionClasses[position]}`}
+    >
+      <motion.div
+        animate={{
+          y: [0, -12, 0, 8, 0],
+          x: [0, 4, 0, -4, 0],
+          rotate: [0, 3, 0, -3, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+          delay: delay * 0.5,
+        }}
+        className="text-accent-blue/40"
+      >
+        <i className={`${icon} text-4xl md:text-5xl lg:text-6xl`} />
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden">
+      {/* Floating devicon icons */}
+      {icons.map((item, index) => (
+        <FloatingIcon key={index} {...item} />
+      ))}
+
       {/* Subtle grid pattern */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.04]"
@@ -88,7 +140,7 @@ export default function Hero() {
             <br />
             dengan bimbingan{" "}
             <span className="relative">
-              <span className="relative z-10 text-accent-blue">Ahli</span>
+              <span className="relative z-10 text-accent-orange">Ahli</span>
               <span className="absolute inset-0 bg-accent-orange/30 -rotate-2 scale-y-110 scale-x-120" />
             </span>
           </motion.h1>

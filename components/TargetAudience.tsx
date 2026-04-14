@@ -44,7 +44,7 @@ export default function TargetAudience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: i * 0.12 }}
-              className="group relative bg-dark-card rounded-[16px] md:rounded-[20px] p-7 sm:p-10 md:p-12 border border-white/[0.06] transition-all duration-300 hover:border-accent-orange/30"
+              className="group relative bg-dark-card rounded-[16px] md:rounded-[20px] p-7 sm:p-10 md:p-12 border border-white/[0.06] transition-all duration-300 hover:border-accent-orange/30 cursor-default"
             >
               {/* Tag */}
               <div className="mb-6 md:mb-8">

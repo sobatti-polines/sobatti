@@ -7,6 +7,7 @@ import Services from "@/components/Services"
 import Teams from "@/components/Teams"
 import Stats from "@/components/Stats"
 import Pricing from "@/components/Pricing"
+import Testimonials from "@/components/Testimonials"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 
@@ -22,6 +23,7 @@ export default function Home() {
       <Services />
       <Teams />
       <Pricing />
+      <Testimonials />
       <Contact />
       <Footer />
     </>

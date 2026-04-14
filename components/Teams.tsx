@@ -50,7 +50,7 @@ export default function Teams() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-foreground max-w-[550px] mb-12 md:mb-16"
         >
-        dibalik <span className="text-accent-blue">Sobat</span><span className="text-accent-orange">Ti</span>
+        Dibalik <span className="text-accent-blue">Sobat</span><span className="text-accent-orange">Ti</span>
         </motion.h2>
 
         <div className="flex items-center justify-center">

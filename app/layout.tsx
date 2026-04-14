@@ -110,10 +110,7 @@ export default function RootLayout({
       contactType: "customer service",
       availableLanguage: "Indonesian",
     },
-    sameAs: [
-      "https://instagram.com/sobat.ti",
-      "https://tiktok.com/@sobat.ti",
-    ],
+    sameAs: ["https://instagram.com/sobat.ti", "https://tiktok.com/@sobat.ti"],
   };
 
   return (
@@ -122,6 +119,10 @@ export default function RootLayout({
       className={`${interBody.variable} ${interSans.variable} ${outfit.variable} antialiased selection:bg-accent-blue selection:text-white`}
     >
       <body className="min-h-screen bg-background font-body text-foreground">
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
         <Script
           id="json-ld"
           type="application/ld+json"
