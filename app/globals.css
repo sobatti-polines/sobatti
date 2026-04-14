@@ -29,8 +29,8 @@
   --color-muted-blue: var(--muted-blue);
   --color-white: var(--white);
   --font-display: var(--font-display);
-  --font-sans: var(--font-sans);
-  --font-body: var(--font-body);
+  --font-sans: var(--font-inter);
+  --font-body: var(--font-inter);
 }
 
 html {
@@ -40,7 +40,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -57,7 +57,7 @@ body {
 }
 
 .font-sans {
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
 /* ─── Button System (56px radius per DESIGN.md) ─── */
@@ -67,7 +67,7 @@ body {
   justify-content: center;
   gap: 8px;
   border-radius: 56px;
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
   font-weight: 600;
   font-size: 15px;
   line-height: 1.2;

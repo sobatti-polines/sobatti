@@ -1,19 +1,14 @@
 import type { Metadata } from "next"
 import { Inter, Outfit } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import "./globals.css"
 
-const interBody = Inter({
-  variable: "--font-body",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-const interSans = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -134,24 +129,16 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${interBody.variable} ${interSans.variable} ${outfit.variable} antialiased selection:bg-accent-blue selection:text-white`}
+      className={`${inter.variable} ${outfit.variable} antialiased selection:bg-accent-blue selection:text-white`}
     >
       <body className="min-h-screen bg-background font-body text-foreground">
-
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
-        />
         <Script
           id="json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Analytics />
+        <SpeedInsights />
         {children}
       </body>
     </html>
