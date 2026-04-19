@@ -8,24 +8,24 @@ import { Check } from "lucide-react";
 const plans = [
   {
     name: "starter",
-    price: "Rp25.000",
+    price: "Rp15.000",
     period: "/1.5 jam",
     subtitle: "Konsultasi & Problem Solving",
     description:
-      "Cocok untuk kalian yang sudah punya projet/web/aplikasi tapi mentok di bug atau butuh arahan teknis.",
+      "Cocok untuk kalian yang sudah punya tugas tapi mentok karena buntu atau butuh arahan teknis.",
     target: "Pelajar, mahasiswa, atau pemula yang butuh panduan cepat.",
     features: [
-      "Sesi konsultasi via WhatsApp/Zoom (30-60 menit)",
-      "Bug fixing ringan (maksimal 2-3 error)",
+      "PRIVAT shareloc kita datangi",
       "Penjelasan logika kode atau konsep teknis",
       "Estimasi solusi dalam 1-2 hari",
+      "Materi dari 0 bagi yang baru memulai"
     ],
     cta: "konsultasi sekarang",
     highlighted: false,
   },
   {
     name: "pro",
-    price: "Rp100.000",
+    price: "Rp80.000",
     period: "/project",
     subtitle: "Full Project & Guidance",
     description:
@@ -35,7 +35,7 @@ const plans = [
       "Pembuatan proyek dari nol (Web, Mobile, UI/UX, Video, atau IoT)",
       "Dokumentasi lengkap (kode, skema, tutorial)",
       "Revisi terbatas (2-3 kali revisian)",
-      "Sesi bimbingan via Zoom/Meet",
+      "Sesi bimbingan PRIVAT OFFLINE",
       "Garansi perbaikan 1 minggu setelah serah terima",
     ],
     cta: "pesan paket pro",

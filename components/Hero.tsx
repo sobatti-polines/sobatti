@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from "react"
+import { Badge } from "@/components/ui/badge"
+import { Announcement, AnnouncementTitle } from "@/components/ui/announcement"
 
 const words = ["Web", "Video", "UI/UX", "IoT", "Mobile"]
 
@@ -122,22 +124,12 @@ function FloatingIcon({ icon, x, y, delay }: { icon: string; x: string; y: strin
       className="absolute pointer-events-none text-accent-blue/25"
       style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
     >
-      <motion.div
-        animate={{
-          y: [0, -15, 0, 10, 0],
-          x: [0, 6, 0, -6, 0],
-          rotate: [0, 5, 0, -5, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-          delay: delay * 0.5,
-        }}
+      <div
+        className="animate-float"
+        style={{ animationDelay: `${delay * 0.5}s` }}
       >
         <IconComponent className="w-9 h-9 md:w-12 md:h-12 lg:w-[60px] lg:h-[60px]" />
-      </motion.div>
+      </div>
     </motion.div>
   )
 }
@@ -182,9 +174,12 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="mb-6 md:mb-8"
           >
-            <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.25em] uppercase text-accent-orange bg-accent-orange/[0.06] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full">
-              bimbingan IT & mentoring proyek
-            </span>
+            <Announcement className="bg-accent-orange/[0.06] border-accent-orange/20">
+              <Badge variant="default" className="bg-accent-orange text-white">Promo</Badge>
+              <AnnouncementTitle className="text-accent-orange/80">
+                Diskon up to 60% — Untuk Mahasiswa Polines
+              </AnnouncementTitle>
+            </Announcement>
           </motion.div>
 
           {/* Headline */}

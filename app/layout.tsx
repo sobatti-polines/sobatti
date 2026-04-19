@@ -1,9 +1,12 @@
 import type { Metadata } from "next"
-import { Inter, Outfit } from "next/font/google"
+import { Inter, Outfit, Geist } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import "./globals.css"
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -129,7 +132,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${inter.variable} ${outfit.variable} antialiased selection:bg-accent-blue selection:text-white`}
+      className={cn("antialiased", "selection:bg-accent-blue", "selection:text-white", inter.variable, outfit.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-screen bg-background font-body text-foreground">
         <Script

@@ -1,46 +1,48 @@
+"use client"
+
 import { Suspense } from "react"
 import dynamic from "next/dynamic"
 import Navbar from "@/components/Navbar"
 import Hero from "@/components/Hero"
 
 const About = dynamic(() => import("@/components/About"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px]" />,
 })
 const SobatValues = dynamic(() => import("@/components/SobatValues"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px]" />,
 })
 const TargetAudience = dynamic(() => import("@/components/TargetAudience"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px]" />,
 })
 const Services = dynamic(() => import("@/components/Services"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px]" />,
 })
 const Teams = dynamic(() => import("@/components/Teams"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen section-padding" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px] section-padding" />,
 })
 const Stats = dynamic(() => import("@/components/Stats"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px]" />,
 })
 const Pricing = dynamic(() => import("@/components/Pricing"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px]" />,
 })
 const Testimonials = dynamic(() => import("@/components/Testimonials"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px]" />,
 })
 const Contact = dynamic(() => import("@/components/Contact"), {
-  ssr: true,
-  loading: () => <div className="min-h-screen" />,
+  ssr: false,
+  loading: () => <div className="min-h-[400px]" />,
 })
 const Footer = dynamic(() => import("@/components/Footer"), {
-  ssr: true,
+  ssr: false,
   loading: () => <div className="h-32" />,
 })
 

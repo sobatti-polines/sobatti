@@ -33,7 +33,7 @@ export default function Navbar() {
           }
         })
       },
-      { rootMargin: "-40% 0px -55% 0px" }
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
     )
 
     navLinks.forEach((link) => {
