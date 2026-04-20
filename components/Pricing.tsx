@@ -15,12 +15,12 @@ const plans = [
       "Cocok untuk kalian yang sudah punya tugas tapi mentok karena buntu atau butuh arahan teknis.",
     target: "Pelajar, mahasiswa, atau pemula yang butuh panduan cepat.",
     features: [
-      "PRIVAT shareloc kita datangi",
-      "Penjelasan logika kode atau konsep teknis",
+      "Konsultasi privat — kami datangi lokasi Anda",
+      "Penjelasan logika kode dan konsep teknis",
       "Estimasi solusi dalam 1-2 hari",
-      "Materi dari 0 bagi yang baru memulai"
+      "Materi dari 0 bagi pemula"
     ],
-    cta: "konsultasi sekarang",
+    cta: "Konsultasi Sekarang",
     highlighted: false,
   },
   {
@@ -34,11 +34,11 @@ const plans = [
     features: [
       "Pembuatan proyek dari nol (Web, Mobile, UI/UX, Video, atau IoT)",
       "Dokumentasi lengkap (kode, skema, tutorial)",
-      "Revisi terbatas (2-3 kali revisian)",
-      "Sesi bimbingan PRIVAT OFFLINE",
-      "Garansi perbaikan 1 minggu setelah serah terima",
+      "Revisi terbatas (2-3 kali)",
+      "Sesi bimbingan privat offline",
+      "Garansi perbaikan 1 minggu",
     ],
-    cta: "pesan paket pro",
+    cta: "Pesan Paket Pro",
     highlighted: true,
   },
   {
@@ -57,7 +57,7 @@ const plans = [
       "Laporan kemajuan berkala (daily/weekly report)",
       "Termasuk pengadaan komponen hardware (jika proyek IoT)",
     ],
-    cta: "hubungi kami",
+    cta: "Hubungi Kami",
     highlighted: false,
   },
 ];

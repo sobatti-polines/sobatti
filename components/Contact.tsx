@@ -60,7 +60,7 @@ export default function Contact() {
 
             <div className="space-y-5 md:space-y-6">
               <div>
-                <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1 lowercase">whatsapp</div>
+                <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1">WhatsApp</div>
                 <Link
                   href="https://wa.me/62895365896938"
                   target="_blank"
@@ -74,7 +74,7 @@ export default function Contact() {
               <div className="rule" />
 
               <div>
-                <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1 lowercase">instagram</div>
+                <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1">Instagram</div>
                 <Link
                   href="https://instagram.com/sobat.ti"
                   target="_blank"
@@ -88,7 +88,7 @@ export default function Contact() {
               <div className="rule" />
 
               <div>
-                <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1 lowercase">tiktok</div>
+                <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1">TikTok</div>
                 <Link
                   href="https://tiktok.com/@sobat.ti"
                   target="_blank"

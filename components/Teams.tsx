@@ -8,7 +8,7 @@ const teamMembers = [
   {
     name: "Haydar",
     role: "Mentor, Web Dev",
-    bio: "Mahasiswa D4 Teknik Rekayasa Komputer semester 6 yang suka ngoding, ngeprompt, ngajar dan ngeprompt lagi",
+    bio: "Mahasiswa D4 Teknik Rekayasa Komputer semester 6 dengan pengalaman di pengembangan web dan mentoring",
     src: "images/haydar.webp",
     alt: "Haydar — Mentor Web Development di SobatTi",
   },

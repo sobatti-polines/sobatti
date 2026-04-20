@@ -39,11 +39,9 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
             >
-              SobatTi hadir untuk menyediakan layanan pembelajaran dan mentoring
-              IT berkualitas tinggi bagi individu yang ingin meningkatkan
-              kompetensi di bidang teknologi. Kami memberikan pendampingan
-              terstruktur dalam peningkatan keterampilan dan penyelesaian
-              proyek, memastikan setiap peserta mendapatkan hasil yang terukur.
+              SobatTi menyediakan layanan bimbingan IT untuk bantu Anda
+              meningkatkan keterampilan dan menyelesaikan proyek. Setiap peserta
+              mendapat pendampingan terstruktur hingga proyek selesai.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -52,10 +50,8 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
             >
-              Kami membangun lingkungan belajar kolaboratif yang menghubungkan
-              peserta dengan mentor berpengalaman, sekaligus menyediakan solusi
-              praktis yang disesuaikan dengan kebutuhan digital masing-masing
-              individu.
+              Kami menghubungkanyou peserta dengan mentor berpengalaman dalam
+              lingkungan belajar yang suportif dan kolaboratif.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -64,8 +60,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="font-sans text-[16px] sm:text-[18px] font-semibold leading-[1.5] text-foreground"
             >
-              Tujuan kami — membantu Anda mengembangkan keterampilan dan
-              menyelesaikan proyek digital dengan mudah dan adaptif.
+              Tujuan kami — bantu Anda menyelesaikan proyek digital dengan percaya diri.
             </motion.p>
           </div>
         </div>

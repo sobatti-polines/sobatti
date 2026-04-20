@@ -8,7 +8,7 @@ import Image from "next/image"
 
 const navLinks = [
   { href: "#about", label: "Tentang" },
-  { href: "#audience", label: "Audiens" },
+  { href: "#audience", label: "Untuk Siapa" },
   { href: "#services", label: "Layanan" },
   { href: "#pricing", label: "Harga" },
   { href: "#contact", label: "Kontak" },

@@ -203,10 +203,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 md:mt-8 mx-auto max-w-[520px] font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
+            className="mt-6 md:mt-8 mx-auto max-w-[560px] font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
           >
-            Bimbingan belajar & mentoring proyek terstruktur untuk meningkatkan
-            kemampuan teknis Anda secara nyata.
+            Bimbingan IT langsung bareng mentor ahli — dari tugas kampus sampai proyek jadi
           </motion.p>
 
           {/* CTAs */}
@@ -217,13 +216,13 @@ export default function Hero() {
             className="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           >
             <Link href="#services" className="btn btn-primary w-full sm:w-auto">
-              Mulai Belajar
+              Daftar Kelas Gratis
             </Link>
             <Link
               href="#about"
               className="btn btn-ghost text-foreground/60 hover:text-foreground w-full sm:w-auto"
             >
-              Pelajari lebih lanjut
+              Lihat Program Kami
             </Link>
           </motion.div>
         </div>
