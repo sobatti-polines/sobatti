@@ -1,25 +1,23 @@
 import type { Metadata } from "next"
-import { Inter, Outfit, Geist } from "next/font/google"
+import { Inter, Outfit } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import "./globals.css"
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "swap",
+  display: "optional",
 });
 
 const outfit = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["400", "500"],
-  display: "swap",
+  display: "optional",
 });
 
 const SITE_URL = "https://sobatti.web.id";
@@ -151,7 +149,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={cn("antialiased", "selection:bg-accent-blue", "selection:text-white", inter.variable, outfit.variable, "font-sans", geist.variable)}
+      className={cn("antialiased", "selection:bg-accent-blue", "selection:text-white", inter.variable, outfit.variable, "font-sans")}
     >
       <body className="min-h-screen bg-background font-body text-foreground">
         <Script
