@@ -40,7 +40,10 @@ export default function Footer() {
               sobatti
             </Link>
             <p className="mt-4 md:mt-5 font-body text-[15px] sm:text-[17px] leading-[1.7] text-white/35 max-w-[220px]">
-              Platform bimbingan IT dan mentoring proyek terlengkap dan terpercaya.
+              Bimbel IT di Semarang. Platform bimbingan IT dan mentoring proyek terlengkap dan terpercaya.
+            </p>
+            <p className="mt-3 font-sans text-[13px] text-white/25">
+              Melayani area Tembalang, Polines, Unnes, dan sekitarnya
             </p>
           </div>
 

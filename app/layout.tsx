@@ -28,18 +28,22 @@ const SITE_NAME = "SobatTi";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "SobatTi — Bimbingan IT & Mentoring Proyek",
+    default: "SobatTi — Bimbel IT di Semarang & Mentoring Proyek",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Bimbingan belajar & mentoring proyek IT terstruktur untuk meningkatkan kemampuan teknis Anda secara nyata. Web, Mobile, UI/UX, IoT, dan Video Editing.",
+    "Bimbel IT di Semarang terpercaya. Bimbingan belajar & mentoring proyek IT terstruktur untuk mahasiswa di Tembalang, Semarang, dan sekitarnya. Web, Mobile, UI/UX, IoT, Video Editing.",
   keywords: [
-    "bimbingan IT",
-    "mentoring proyek",
-    "belajar web development",
+    "bimbel IT di Semarang",
+    "bimbel IT di Tembalang",
+    "bimbingan IT Semarang",
+    "mentoring proyek IT",
+    "bimbel IT Polines",
+    "bimbel IT Unnes",
+    "belajar web development Semarang",
     "belajar mobile development",
-    "mentoring IT Indonesia",
-    "jasa pembuatan proyek",
+    "mentoring IT Semarang",
+    "jasa pembuatan proyek IT",
     "bimbingan skripsi IT",
     "IoT",
     "UI/UX design",
@@ -115,11 +119,26 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "LocalBusiness",
     name: SITE_NAME,
     url: SITE_URL,
     description:
-      "Platform bimbingan IT dan mentoring proyek terlengkap dan terpercaya.",
+      "Bimbel IT di Semarang terpercaya. Platform bimbingan IT dan mentoring proyek terlengkap dan terpercaya.",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Semarang",
+      addressRegion: "Jawa Tengah",
+      addressCountry: "ID",
+      neighborhood: "Tembalang",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "-7.0486",
+      longitude: "110.4375",
+    },
+    telephone: "+62-895-3658-96938",
+    priceRange: "$$",
+    areaServed: ["Semarang", "Tembalang", "Jawa Tengah"],
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+62-895-3658-96938",

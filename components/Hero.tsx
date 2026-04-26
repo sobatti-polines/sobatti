@@ -205,7 +205,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 md:mt-8 mx-auto max-w-[560px] font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
           >
-            Bimbingan IT langsung bareng mentor ahli — dari tugas kampus sampai proyek jadi
+            Bimbel IT di Semarang langsung bareng mentor ahli — dari tugas kampus sampai proyek jadi, terutama area Tembalang
           </motion.p>
 
           {/* CTAs */}

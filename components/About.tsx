@@ -32,27 +32,29 @@ export default function About() {
 
           {/* Right — Body */}
           <div className="space-y-5 sm:space-y-6">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
-            >
-              SobatTi menyediakan layanan bimbingan IT untuk bantu Anda
-              meningkatkan keterampilan dan menyelesaikan proyek. Setiap peserta
-              mendapat pendampingan terstruktur hingga proyek selesai.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
-            >
-              Kami menghubungkanyou peserta dengan mentor berpengalaman dalam
-              lingkungan belajar yang suportif dan kolaboratif.
-            </motion.p>
+             <motion.p
+               initial={{ opacity: 0, y: 20 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true, margin: "-80px" }}
+               transition={{ duration: 0.6, delay: 0.1 }}
+               className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
+             >
+               SobatTi adalah bimbel IT di Semarang yang menyediakan layanan
+               bimbingan IT untuk bantu Anda meningkatkan keterampilan dan
+               menyelesaikan proyek. Setiap peserta mendapat pendampingan
+               terstruktur hingga proyek selesai.
+             </motion.p>
+             <motion.p
+               initial={{ opacity: 0, y: 20 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true, margin: "-80px" }}
+               transition={{ duration: 0.6, delay: 0.2 }}
+               className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-foreground/50"
+             >
+               Melayani mahasiswa di Tembalang, sekitar Polines, Unnes, dan
+               seluruh Semarang, kami menghubungkan peserta dengan mentor
+               berpengalaman dalam lingkungan belajar yang suportif.
+             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

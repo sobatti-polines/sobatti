@@ -58,7 +58,16 @@ export default function Contact() {
               informasi kontak
             </h3>
 
-            <div className="space-y-5 md:space-y-6">
+             <div className="space-y-5 md:space-y-6">
+              <div>
+                <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1">Alamat</div>
+                <p className="font-sans text-[15px] sm:text-[17px] font-semibold text-foreground">
+                  Tembalang, Semarang<br />Jawa Tengah, Indonesia
+                </p>
+              </div>
+
+              <div className="rule" />
+
               <div>
                 <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1">WhatsApp</div>
                 <Link
