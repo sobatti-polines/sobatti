@@ -153,6 +153,18 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background font-body text-foreground">
         <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-F89XTWW8X1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-F89XTWW8X1');
+          `}
+        </Script>
+        <Script
           id="json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
