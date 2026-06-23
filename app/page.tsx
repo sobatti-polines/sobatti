@@ -25,6 +25,10 @@ const Teams = dynamic(() => import("@/components/Teams"), {
   ssr: false,
   loading: () => <div className="min-h-[400px] section-padding" />,
 })
+const Portfolio = dynamic(() => import("@/components/Portfolio"), {
+  ssr: false,
+  loading: () => <div className="min-h-[400px] section-padding" />,
+})
 const Stats = dynamic(() => import("@/components/Stats"), {
   ssr: false,
   loading: () => <div className="min-h-[400px]" />,
@@ -67,6 +71,7 @@ export default function Home() {
           <Stats />
           <Services />
           <Teams />
+          <Portfolio />
           <Pricing />
           <Testimonials />
           <Contact />
