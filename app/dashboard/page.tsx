@@ -26,6 +26,7 @@ import {
   Smartphone,
   BarChart3,
   Music,
+  Globe,
 } from "lucide-react";
 
 const IG_DATA = [
@@ -60,6 +61,24 @@ const TT_DATA = [
   { week: "Jun 8 (W11)", tt_views: 634, tt_profile_views: 21, tt_followers: 58, tt_likes: 31, tt_comments: 0, tt_shares: 0, tt_new_followers: 3, tt_videos: 1 },
   { week: "Jun 15 (W12)", tt_views: 2746, tt_profile_views: 35, tt_followers: 61, tt_likes: 155, tt_comments: 0, tt_shares: 4, tt_new_followers: 3, tt_videos: 0 },
   { week: "Jun 22 (W13)", tt_views: 724, tt_profile_views: 11, tt_followers: 64, tt_likes: 30, tt_comments: 0, tt_shares: 0, tt_new_followers: 3, tt_videos: 0 },
+];
+
+const WEB_DATA = [
+  { week: "Mar 23 (W1)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "Mar 30 (W2)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "Apr 6 (W3)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "Apr 13 (W4)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "Apr 20 (W5)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "Apr 27 (W6)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "May 4 (W7)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "May 11 (W8)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "May 18 (W9)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "May 25 (W10)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "Jun 1 (W11)", web_active_users: 0, web_new_users: 0, web_engagement_time: 0, web_page_views: 0, web_sessions: 0, web_engagement_events: 0, web_scrolls: 0 },
+  { week: "Jun 8 (W12)", web_active_users: 352, web_new_users: 352, web_engagement_time: 280, web_page_views: 350, web_sessions: 348, web_engagement_events: 220, web_scrolls: 2 },
+  { week: "Jun 15 (W13)", web_active_users: 433, web_new_users: 153, web_engagement_time: 180, web_page_views: 110, web_sessions: 110, web_engagement_events: 70, web_scrolls: 1 },
+  { week: "Jun 22 (W14)", web_active_users: 497, web_new_users: 31, web_engagement_time: 120, web_page_views: 60, web_sessions: 60, web_engagement_events: 40, web_scrolls: 1 },
+  { week: "Jun 29 (W15)", web_active_users: 516, web_new_users: 3, web_engagement_time: 80, web_page_views: 26, web_sessions: 26, web_engagement_events: 15, web_scrolls: 0 },
 ];
 
 const ALL_POSTS = [
@@ -98,7 +117,7 @@ const COLORS = {
   lightTeal: "#14b8a6",
 };
 
-type Platform = "instagram" | "tiktok";
+type Platform = "instagram" | "tiktok" | "web";
 
 const igTopPost = ALL_POSTS.reduce((best, p) => p.views > (best?.views || 0) ? p : best);
 const ttTopVideo = ALL_VIDEOS.reduce((best, v) => v.views > (best?.views || 0) ? v : best);
@@ -121,6 +140,36 @@ const totalTtNewFollowers = TT_DATA.reduce((a, c) => a + c.tt_new_followers, 0);
 
 const igLatest = IG_DATA[IG_DATA.length - 1];
 const ttLatest = TT_DATA[TT_DATA.length - 1];
+const webLatest = WEB_DATA[WEB_DATA.length - 1];
+const webTotalActiveUsers = WEB_DATA.reduce((a, d) => a + d.web_new_users, 0);
+const webTotalPageViews = WEB_DATA.reduce((a, d) => a + d.web_page_views, 0);
+const webTotalSessions = WEB_DATA.reduce((a, d) => a + d.web_sessions, 0);
+const webTotalNewUsers = WEB_DATA.reduce((a, d) => a + d.web_new_users, 0);
+const webTotalEngagementEvents = WEB_DATA.reduce((a, d) => a + d.web_engagement_events, 0);
+const webTotalScrolls = WEB_DATA.reduce((a, d) => a + d.web_scrolls, 0);
+const webChannels = [
+  { channel: "Direct", users: 531 },
+  { channel: "Organic Social", users: 6 },
+  { channel: "Organic Search", users: 2 },
+];
+const webCountries = [
+  { country: "Indonesia", users: 510 },
+  { country: "United States", users: 3 },
+  { country: "India", users: 2 },
+  { country: "Canada", users: 1 },
+  { country: "Germany", users: 1 },
+  { country: "Ecuador", users: 1 },
+  { country: "Philippines", users: 1 },
+  { country: "Sweden", users: 1 },
+];
+const webRetention = [
+  { cohort: "May 17—23", w0: 0, w1: 0, w2: 0, w3: 0, w4: 0, w5: 0 },
+  { cohort: "May 24—30", w0: 0, w1: 0, w2: 0, w3: 0, w4: 0, w5: -1 },
+  { cohort: "May 31—Jun 6", w0: 0, w1: 0, w2: 0, w3: 0, w4: -1, w5: -1 },
+  { cohort: "Jun 7—13", w0: 512, w1: 0, w2: 0, w3: -1, w4: -1, w5: -1 },
+  { cohort: "Jun 14—20", w0: 9, w1: 0, w2: -1, w3: -1, w4: -1, w5: -1 },
+  { cohort: "Jun 21—27", w0: 17, w1: -1, w2: -1, w3: -1, w4: -1, w5: -1 },
+];
 
 function DeltaTooltip({ active, payload, label, data: chartData }: any) {
   if (active && payload && payload.length && chartData) {
@@ -168,7 +217,9 @@ export default function Dashboard() {
   };
 
   const isIG = platform === "instagram";
-  const data: any[] = isIG ? IG_DATA : TT_DATA;
+  const isTT = platform === "tiktok";
+  const isWeb = platform === "web";
+  const data: any[] = isIG ? IG_DATA : isTT ? TT_DATA : WEB_DATA;
 
   return (
     <div className="min-h-screen bg-[#FDFDFD] text-[#0a0b0d] font-sans">
@@ -186,8 +237,8 @@ export default function Dashboard() {
 
       <main className="max-w-[1600px] mx-auto px-6 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold mb-2">{isIG ? "Instagram" : "TikTok"} Dashboard</h1>
-          <p className="text-gray-500">Weekly health check and deep dive analytics for @sobat.ti{isIG ? "." : " — 5 videos, 64 followers."}</p>
+          <h1 className="text-3xl font-semibold mb-2">{isIG ? "Instagram" : isTT ? "TikTok" : "Web"} Dashboard</h1>
+          <p className="text-gray-500">Weekly health check and deep dive analytics for @sobat.ti{isIG ? "." : isTT ? " — 5 videos, 64 followers." : " — 546 page views, 539 users."}</p>
         </div>
 
         {/* TABS */}
@@ -203,10 +254,18 @@ export default function Dashboard() {
           <button
             onClick={() => { setPlatform("tiktok"); setHiddenLines([]); }}
             className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-              !isIG ? "bg-white shadow-sm text-[#0a0b0d]" : "text-gray-500 hover:text-[#0a0b0d]"
+              isTT ? "bg-white shadow-sm text-[#0a0b0d]" : "text-gray-500 hover:text-[#0a0b0d]"
             }`}
           >
             <Music className="w-4 h-4" /> TikTok
+          </button>
+          <button
+            onClick={() => { setPlatform("web"); setHiddenLines([]); }}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+              isWeb ? "bg-white shadow-sm text-[#0a0b0d]" : "text-gray-500 hover:text-[#0a0b0d]"
+            }`}
+          >
+            <BarChart3 className="w-4 h-4" /> Web
           </button>
         </div>
 
@@ -281,7 +340,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </>
-          ) : (
+          ) : isTT ? (
             <>
               <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
                 <h3 className="text-gray-500 text-xs font-bold mb-4 uppercase tracking-widest">Lifetime (Apr 2 — Present)</h3>
@@ -350,6 +409,69 @@ export default function Dashboard() {
                 </div>
               </div>
             </>
+          ) : (
+            <>
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                <h3 className="text-gray-500 text-xs font-bold mb-4 uppercase tracking-widest">Lifetime (Mar 23 — Present)</h3>
+                <div className="flex flex-col gap-3">
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <span className="text-gray-600 font-medium text-sm">Page Views</span>
+                    <span className="text-xl font-bold text-gray-900">{webTotalPageViews.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <span className="text-gray-600 font-medium text-sm">Sessions</span>
+                    <span className="text-xl font-bold text-gray-900">{webTotalSessions.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <span className="text-gray-600 font-medium text-sm">Users</span>
+                    <span className="text-xl font-bold text-gray-900">{webTotalActiveUsers.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-gray-100 last:border-0 pb-2 last:pb-0">
+                    <span className="text-gray-600 font-medium text-sm">Engagement Rate</span>
+                    <span className="text-xl font-bold text-gray-900">{Math.round(webTotalEngagementEvents / webTotalActiveUsers * 100)}%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                <h3 className="text-gray-500 text-xs font-bold mb-4 uppercase tracking-widest">This Week ({webLatest.week})</h3>
+                <div className="flex flex-col gap-3">
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <span className="text-gray-600 font-medium text-sm">Page Views</span>
+                    <span className="text-xl font-bold text-gray-900">{webLatest.web_page_views.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <span className="text-gray-600 font-medium text-sm">Sessions</span>
+                    <span className="text-xl font-bold text-gray-900">{webLatest.web_sessions.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <span className="text-gray-600 font-medium text-sm">Active Users</span>
+                    <span className="text-xl font-bold text-gray-900">{webLatest.web_active_users.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center last:border-0 pb-2 last:pb-0">
+                    <span className="text-gray-600 font-medium text-sm">New Users</span>
+                    <span className="text-xl font-bold text-gray-900">{webLatest.web_new_users.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#0a0b0d] border border-gray-800 rounded-2xl p-6 shadow-sm flex flex-col justify-between text-white relative overflow-hidden">
+                <div className="absolute -right-6 -top-6 opacity-10">
+                  <BarChart3 className="w-40 h-40 text-blue-400" />
+                </div>
+                <div className="relative z-10 h-full flex flex-col">
+                  <h3 className="text-gray-400 text-xs font-bold mb-4 uppercase tracking-widest">Acquisition Channels</h3>
+                  <div className="flex flex-col gap-2 mt-2 flex-1 justify-center">
+                    {webChannels.map((ch) => (
+                      <div key={ch.channel} className="flex items-center justify-between">
+                        <span className="text-gray-300 text-sm">{ch.channel}</span>
+                        <span className="font-semibold text-white">{ch.users} <span className="text-gray-400 font-normal">({Math.round(ch.users / webTotalActiveUsers * 100)}%)</span></span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
 
@@ -357,7 +479,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 gap-8">
           {/* Primary Chart */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold mb-6">{isIG ? "Views & Reach" : "Video Views & Profile Views"}</h2>
+            <h2 className="text-lg font-semibold mb-6">{isIG ? "Views & Reach" : isTT ? "Video Views & Profile Views" : "Active Users & New Users"}</h2>
             <div className="h-[400px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -372,10 +494,15 @@ export default function Dashboard() {
                       <Line hide={hiddenLines.includes('ig_views')} yAxisId="left" type="monotone" name="Views" dataKey="ig_views" stroke={COLORS.blue} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
                       <Line hide={hiddenLines.includes('ig_reach')} yAxisId="right" type="monotone" name="Reach" dataKey="ig_reach" stroke={COLORS.lightBlue} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
                     </>
-                  ) : (
+                  ) : isTT ? (
                     <>
                       <Line hide={hiddenLines.includes('tt_views')} yAxisId="left" type="monotone" name="Video Views" dataKey="tt_views" stroke={COLORS.orange} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
                       <Line hide={hiddenLines.includes('tt_profile_views')} yAxisId="right" type="monotone" name="Profile Views" dataKey="tt_profile_views" stroke={COLORS.lightOrange} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
+                    </>
+                  ) : (
+                    <>
+                      <Line hide={hiddenLines.includes('web_active_users')} yAxisId="left" type="monotone" name="Active Users" dataKey="web_active_users" stroke={COLORS.blue} strokeWidth={3} dot={{ r: 4, fill: COLORS.blue, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6 }} />
+                      <Line hide={hiddenLines.includes('web_new_users')} yAxisId="right" type="monotone" name="New Users" dataKey="web_new_users" stroke={COLORS.lightBlue} strokeWidth={3} dot={{ r: 4, fill: COLORS.lightBlue, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6 }} />
                     </>
                   )}
                 </LineChart>
@@ -385,7 +512,7 @@ export default function Dashboard() {
 
           {/* Engagement Chart */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold mb-6">Engagement & Activity</h2>
+            <h2 className="text-lg font-semibold mb-6">{isWeb ? "Page Views & Sessions" : "Engagement & Activity"}</h2>
             <div className="h-[400px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -402,11 +529,16 @@ export default function Dashboard() {
                       <Line hide={hiddenLines.includes('ig_comments')} yAxisId="right" type="monotone" name="Comments" dataKey="ig_comments" stroke={COLORS.lightOrange} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
                       <Line hide={hiddenLines.includes('ig_posts')} yAxisId="right" type="monotone" name="Posts" dataKey="ig_posts" stroke={COLORS.purple} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
                     </>
-                  ) : (
+                  ) : isTT ? (
                     <>
                       <Line hide={hiddenLines.includes('tt_likes')} yAxisId="left" type="monotone" name="Likes" dataKey="tt_likes" stroke={COLORS.orange} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
                       <Line hide={hiddenLines.includes('tt_shares')} yAxisId="right" type="monotone" name="Shares" dataKey="tt_shares" stroke={COLORS.teal} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
                       <Line hide={hiddenLines.includes('tt_comments')} yAxisId="right" type="monotone" name="Comments" dataKey="tt_comments" stroke={COLORS.pink} strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
+                    </>
+                  ) : (
+                    <>
+                      <Line hide={hiddenLines.includes('web_page_views')} yAxisId="left" type="monotone" name="Page Views" dataKey="web_page_views" stroke={COLORS.purple} strokeWidth={3} dot={{ r: 4, fill: COLORS.purple, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6 }} />
+                      <Line hide={hiddenLines.includes('web_sessions')} yAxisId="right" type="monotone" name="Sessions" dataKey="web_sessions" stroke={COLORS.orange} strokeWidth={3} dot={{ r: 4, fill: COLORS.orange, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6 }} />
                     </>
                   )}
                 </LineChart>
@@ -414,71 +546,169 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Follower Growth Chart */}
+          {/* Follower Growth / Engagement Time Chart */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold">Follower Growth</h2>
-              <span className="text-sm text-gray-500">
-                <span className="font-semibold text-teal-600">{data[0].tt_followers ?? data[0].ig_followers}</span> → <span className="font-semibold text-teal-600">{data[data.length - 1].tt_followers ?? data[data.length - 1].ig_followers}</span> total
-              </span>
-            </div>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data} margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                  <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 10 }} dy={10} interval="preserveStartEnd" />
-                  <YAxis domain={isIG ? [0, 80] : [0, 70]} axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 12 }} ticks={isIG ? [0, 10, 20, 30, 40, 50, 60, 70, 80] : [0, 10, 20, 30, 40, 50, 60, 70]} />
-                  <Tooltip content={<DeltaTooltip data={data} />} cursor={{ stroke: '#E5E7EB', strokeWidth: 1, strokeDasharray: '3 3' }} />
-                  <Line type="monotone" dataKey={isIG ? "ig_followers" : "tt_followers"} stroke={COLORS.teal} strokeWidth={3} dot={{ r: 5, fill: COLORS.teal, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 7, fill: COLORS.teal, strokeWidth: 2, stroke: '#fff' }} name="Followers" />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="mt-4 grid grid-cols-3 gap-4 text-center text-sm">
-              <div>
-                <span className="text-gray-500 block">Start</span>
-                <span className="font-semibold text-lg">{isIG ? IG_DATA[0].ig_followers : TT_DATA[0].tt_followers}</span>
-              </div>
-              <div>
-                <span className="text-gray-500 block">Total Growth</span>
-                <span className="font-semibold text-lg text-teal-600">+{isIG ? IG_DATA[IG_DATA.length - 1].ig_followers - IG_DATA[0].ig_followers : TT_DATA[TT_DATA.length - 1].tt_followers - TT_DATA[0].tt_followers}</span>
-              </div>
-              <div>
-                <span className="text-gray-500 block">Current</span>
-                <span className="font-semibold text-lg">{isIG ? IG_DATA[IG_DATA.length - 1].ig_followers : TT_DATA[TT_DATA.length - 1].tt_followers}</span>
-              </div>
-            </div>
+            {isWeb ? (
+              <>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-lg font-semibold">Avg Engagement Time</h2>
+                  <span className="text-sm text-gray-500">Mean session duration per active user</span>
+                </div>
+                <div className="h-[300px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={data} margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                      <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 10 }} dy={10} interval="preserveStartEnd" />
+                      <YAxis domain={[0, 600]} axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 12 }} />
+                      <Tooltip content={<DeltaTooltip data={data} />} cursor={{ stroke: '#E5E7EB', strokeWidth: 1, strokeDasharray: '3 3' }} />
+                      <Line type="monotone" dataKey="web_engagement_time" stroke={COLORS.teal} strokeWidth={3} dot={{ r: 5, fill: COLORS.teal, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 7, fill: COLORS.teal, strokeWidth: 2, stroke: '#fff' }} name="Avg Engagement Time (s)" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-4 text-center text-sm">
+                  <div>
+                    <span className="text-gray-500 block">Peak</span>
+                    <span className="font-semibold text-lg">{Math.round(Math.max(...WEB_DATA.map(d => d.web_engagement_time)))}s</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block">Average</span>
+                    <span className="font-semibold text-lg text-teal-600">{Math.round(WEB_DATA.reduce((a, d) => a + d.web_engagement_time, 0) / WEB_DATA.filter(d => d.web_engagement_time > 0).length)}s</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block">Last Week</span>
+                    <span className="font-semibold text-lg">{Math.round(WEB_DATA[WEB_DATA.length - 2].web_engagement_time)}s</span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-lg font-semibold">Follower Growth</h2>
+                  <span className="text-sm text-gray-500">
+                    <span className="font-semibold text-teal-600">{data[0].tt_followers ?? data[0].ig_followers}</span> → <span className="font-semibold text-teal-600">{data[data.length - 1].tt_followers ?? data[data.length - 1].ig_followers}</span> total
+                  </span>
+                </div>
+                <div className="h-[300px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={data} margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                      <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 10 }} dy={10} interval="preserveStartEnd" />
+                      <YAxis domain={isIG ? [0, 80] : [0, 70]} axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 12 }} ticks={isIG ? [0, 10, 20, 30, 40, 50, 60, 70, 80] : [0, 10, 20, 30, 40, 50, 60, 70]} />
+                      <Tooltip content={<DeltaTooltip data={data} />} cursor={{ stroke: '#E5E7EB', strokeWidth: 1, strokeDasharray: '3 3' }} />
+                      <Line type="monotone" dataKey={isIG ? "ig_followers" : "tt_followers"} stroke={COLORS.teal} strokeWidth={3} dot={{ r: 5, fill: COLORS.teal, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 7, fill: COLORS.teal, strokeWidth: 2, stroke: '#fff' }} name="Followers" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-4 text-center text-sm">
+                  <div>
+                    <span className="text-gray-500 block">Start</span>
+                    <span className="font-semibold text-lg">{isIG ? IG_DATA[0].ig_followers : TT_DATA[0].tt_followers}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block">Total Growth</span>
+                    <span className="font-semibold text-lg text-teal-600">+{isIG ? IG_DATA[IG_DATA.length - 1].ig_followers - IG_DATA[0].ig_followers : TT_DATA[TT_DATA.length - 1].tt_followers - TT_DATA[0].tt_followers}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block">Current</span>
+                    <span className="font-semibold text-lg">{isIG ? IG_DATA[IG_DATA.length - 1].ig_followers : TT_DATA[TT_DATA.length - 1].tt_followers}</span>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
-        {/* POST VOLUME CHART */}
+        {/* POST VOLUME / WEB EVENTS */}
         <div className="mt-8 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-lg font-semibold mb-1">Content Volume</h2>
-          <p className="text-sm text-gray-500 mb-6">
-            {isIG ? "Weekly posts broken down by format (feed images, Reels, carousels)" : "Weekly video uploads"}
-          </p>
-          <div className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 10 }} dy={8} interval="preserveStartEnd" />
-                <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 12 }} />
-                <Tooltip content={<DeltaTooltip data={data} />} cursor={{ fill: '#F3F4F6' }} />
-                {isIG ? (
-                  <>
-                    <Bar dataKey="ig_reels" name="Reels" stackId="a" fill={COLORS.pink} radius={[2, 2, 0, 0]} />
-                    <Bar dataKey="ig_images" name="Image Posts" stackId="a" fill={COLORS.blue} radius={[2, 2, 0, 0]} />
-                    <Bar dataKey="ig_carousels" name="Carousels" stackId="a" fill={COLORS.lightBlue} radius={[2, 2, 0, 0]} />
-                    <Legend iconType="circle" wrapperStyle={{ paddingTop: '16px', fontSize: '12px' }} />
-                  </>
-                ) : (
-                  <>
-                    <Bar dataKey="tt_videos" name="Videos" fill={COLORS.orange} radius={[4, 4, 0, 0]} />
-                    <Legend iconType="circle" wrapperStyle={{ paddingTop: '16px', fontSize: '12px' }} />
-                  </>
-                )}
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          {isWeb ? (
+            <>
+              <h2 className="text-lg font-semibold mb-1">Events Summary</h2>
+              <p className="text-sm text-gray-500 mb-6">All tracked user events across the entire period</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200 text-gray-500 text-xs uppercase tracking-widest">
+                      <th className="text-left py-3 pr-4 font-semibold">Event</th>
+                      <th className="text-right py-3 px-4 font-semibold">Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { name: "page_view", count: 546 },
+                      { name: "session_start", count: 544 },
+                      { name: "first_visit", count: 539 },
+                      { name: "user_engagement", count: 345 },
+                      { name: "scroll", count: 4 },
+                    ].map((e, i) => (
+                      <tr key={i} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                        <td className="py-3 pr-4 text-gray-900 font-medium">{e.name}</td>
+                        <td className="py-3 px-4 text-right font-semibold text-gray-900">{e.count.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <h3 className="text-lg font-semibold mt-8 mb-3">User Retention (Cohorts)</h3>
+              <p className="text-sm text-gray-500 mb-4">Weekly cohort retention — how many users returned week-over-week</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200 text-gray-500 text-xs uppercase tracking-widest">
+                      <th className="text-left py-3 pr-4 font-semibold">Cohort</th>
+                      <th className="text-right py-3 px-4 font-semibold">Week 0</th>
+                      <th className="text-right py-3 px-4 font-semibold">Week 1</th>
+                      <th className="text-right py-3 px-4 font-semibold">Week 2</th>
+                      <th className="text-right py-3 px-4 font-semibold">Week 3</th>
+                      <th className="text-right py-3 px-4 font-semibold">Week 4</th>
+                      <th className="text-right py-3 px-4 font-semibold">Week 5</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {webRetention.map((r, i) => (
+                      <tr key={i} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                        <td className="py-3 pr-4 text-gray-900 font-medium whitespace-nowrap">{r.cohort}</td>
+                        {[r.w0, r.w1, r.w2, r.w3, r.w4, r.w5].map((v, j) => (
+                          <td key={j} className={`py-3 px-4 text-right font-semibold ${v === -1 ? "text-gray-300" : v > 0 ? "text-teal-600" : "text-gray-500"}`}>
+                            {v === -1 ? "\u2014" : v}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ) : (
+            <>
+              <h2 className="text-lg font-semibold mb-1">Content Volume</h2>
+              <p className="text-sm text-gray-500 mb-6">
+                {isIG ? "Weekly posts broken down by format (feed images, Reels, carousels)" : "Weekly video uploads"}
+              </p>
+              <div className="h-[300px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                    <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 10 }} dy={8} interval="preserveStartEnd" />
+                    <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 12 }} />
+                    <Tooltip content={<DeltaTooltip data={data} />} cursor={{ fill: '#F3F4F6' }} />
+                    {isIG ? (
+                      <>
+                        <Bar dataKey="ig_reels" name="Reels" stackId="a" fill={COLORS.pink} radius={[2, 2, 0, 0]} />
+                        <Bar dataKey="ig_images" name="Image Posts" stackId="a" fill={COLORS.blue} radius={[2, 2, 0, 0]} />
+                        <Bar dataKey="ig_carousels" name="Carousels" stackId="a" fill={COLORS.lightBlue} radius={[2, 2, 0, 0]} />
+                        <Legend iconType="circle" wrapperStyle={{ paddingTop: '16px', fontSize: '12px' }} />
+                      </>
+                    ) : (
+                      <>
+                        <Bar dataKey="tt_videos" name="Videos" fill={COLORS.orange} radius={[4, 4, 0, 0]} />
+                        <Legend iconType="circle" wrapperStyle={{ paddingTop: '16px', fontSize: '12px' }} />
+                      </>
+                    )}
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </>
+          )}
         </div>
 
         {/* METRIC BREAKDOWNS */}
@@ -518,7 +748,7 @@ export default function Dashboard() {
                 <span className="text-xl font-semibold">{IG_DATA.reduce((prev, curr) => prev.ig_views > curr.ig_views ? prev : curr).week}</span>
               </div>
             </>
-          ) : (
+          ) : isTT ? (
             <>
               <div className="flex flex-col gap-1">
                 <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><Heart className="w-4 h-4" /> Avg Likes/Week</span>
@@ -553,55 +783,137 @@ export default function Dashboard() {
                 <span className="text-xl font-semibold">{ttTopVideo.likes.toLocaleString()}</span>
               </div>
             </>
+          ) : (
+            <>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><Eye className="w-4 h-4" /> Total Page Views</span>
+                <span className="text-xl font-semibold">{webTotalPageViews.toLocaleString()}</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><Users className="w-4 h-4" /> Total Users</span>
+                <span className="text-xl font-semibold">{webTotalActiveUsers.toLocaleString()}</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><Activity className="w-4 h-4" /> Total Sessions</span>
+                <span className="text-xl font-semibold">{webTotalSessions.toLocaleString()}</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><Heart className="w-4 h-4" /> Engagement Events</span>
+                <span className="text-xl font-semibold">{webTotalEngagementEvents.toLocaleString()}</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><BarChart3 className="w-4 h-4" /> Engagement Rate</span>
+                <span className="text-xl font-semibold">{Math.round(webTotalEngagementEvents / webTotalActiveUsers * 100)}%</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><Share2 className="w-4 h-4" /> Scrolls</span>
+                <span className="text-xl font-semibold">{webTotalScrolls.toLocaleString()}</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><Activity className="w-4 h-4" /> Avg Time on Site</span>
+                <span className="text-xl font-semibold">{Math.round(WEB_DATA.reduce((a, d) => a + d.web_engagement_time, 0) / WEB_DATA.filter(d => d.web_engagement_time > 0).length)}s</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-500 text-sm font-medium flex items-center gap-1.5"><Globe className="w-4 h-4" /> Top Country</span>
+                <span className="text-xl font-semibold">ID (510)</span>
+              </div>
+            </>
           )}
         </div>
 
-        {/* ALL VIDEOS / POSTS TABLE */}
-        <div className="mt-12 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h2 className="text-lg font-semibold mb-4">All {isIG ? "Posts" : "Videos"}</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200 text-gray-500 text-xs uppercase tracking-widest">
-                  <th className="text-left py-3 pr-4 font-semibold">Date</th>
-                  <th className="text-left py-3 pr-4 font-semibold">{isIG ? "Type" : ""}</th>
-                  <th className="text-left py-3 pr-4 font-semibold">Description</th>
-                  <th className="text-right py-3 px-4 font-semibold">Views</th>
-                  <th className="text-right py-3 px-4 font-semibold">Likes</th>
-                  <th className="text-right py-3 px-4 font-semibold">Shares</th>
-                  <th className="text-right py-3 px-4 font-semibold">Comments</th>
-                  {isIG && <th className="text-right py-3 px-4 font-semibold">Saves</th>}
-                  {isIG && <th className="text-right py-3 pl-4 font-semibold">Follows</th>}
-                </tr>
-              </thead>
-              <tbody>
-                {(isIG ? [...ALL_POSTS].reverse() : [...ALL_VIDEOS].reverse()).map((item: any, i) => (
-                  <tr key={i} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
-                    <td className="py-3 pr-4 text-gray-900 whitespace-nowrap">{item.date}</td>
-                    <td className="py-3 pr-4">
-                      {isIG && (
-                        <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                          item.type === "Reel" ? "bg-pink-50 text-pink-600" :
-                          item.type === "Carousel" ? "bg-blue-50 text-blue-600" :
-                          "bg-gray-100 text-gray-600"
-                        }`}>
-                          {item.type}
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-3 pr-4 text-gray-600 max-w-[240px] truncate">{item.desc || item.title}</td>
-                    <td className="py-3 px-4 text-right font-medium text-gray-900">{item.views.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-right font-medium text-pink-600">{item.likes}</td>
-                    <td className="py-3 px-4 text-right text-gray-600">{item.shares}</td>
-                    <td className="py-3 px-4 text-right text-gray-600">{item.comments}</td>
-                    {isIG && <td className="py-3 px-4 text-right text-gray-600">{item.saves}</td>}
-                    {isIG && <td className="py-3 pl-4 text-right text-gray-600">{item.follows || "—"}</td>}
+        {/* ALL VIDEOS / POSTS / WEB BREAKDOWN */}
+        {isWeb ? (
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+              <h2 className="text-lg font-semibold mb-4">Acquisition Channels</h2>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 text-gray-500 text-xs uppercase tracking-widest">
+                    <th className="text-left py-3 pr-4 font-semibold">Channel</th>
+                    <th className="text-right py-3 px-4 font-semibold">Users</th>
+                    <th className="text-right py-3 pl-4 font-semibold">%</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {webChannels.map((ch, i) => (
+                    <tr key={i} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                      <td className="py-3 pr-4 text-gray-900 font-medium">{ch.channel}</td>
+                      <td className="py-3 px-4 text-right font-semibold text-gray-900">{ch.users}</td>
+                      <td className="py-3 pl-4 text-right text-gray-600">{Math.round(ch.users / webTotalActiveUsers * 100)}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+              <h2 className="text-lg font-semibold mb-4">Top Countries</h2>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 text-gray-500 text-xs uppercase tracking-widest">
+                    <th className="text-left py-3 pr-4 font-semibold">Country</th>
+                    <th className="text-right py-3 px-4 font-semibold">Users</th>
+                    <th className="text-right py-3 pl-4 font-semibold">%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {webCountries.map((c, i) => (
+                    <tr key={i} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                      <td className="py-3 pr-4 text-gray-900 font-medium">{c.country}</td>
+                      <td className="py-3 px-4 text-right font-semibold text-gray-900">{c.users}</td>
+                      <td className="py-3 pl-4 text-right text-gray-600">{Math.round(c.users / webTotalActiveUsers * 100)}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="mt-12 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+            <h2 className="text-lg font-semibold mb-4">All {isIG ? "Posts" : "Videos"}</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 text-gray-500 text-xs uppercase tracking-widest">
+                    <th className="text-left py-3 pr-4 font-semibold">Date</th>
+                    <th className="text-left py-3 pr-4 font-semibold">{isIG ? "Type" : ""}</th>
+                    <th className="text-left py-3 pr-4 font-semibold">Description</th>
+                    <th className="text-right py-3 px-4 font-semibold">Views</th>
+                    <th className="text-right py-3 px-4 font-semibold">Likes</th>
+                    <th className="text-right py-3 px-4 font-semibold">Shares</th>
+                    <th className="text-right py-3 px-4 font-semibold">Comments</th>
+                    {isIG && <th className="text-right py-3 px-4 font-semibold">Saves</th>}
+                    {isIG && <th className="text-right py-3 pl-4 font-semibold">Follows</th>}
+                  </tr>
+                </thead>
+                <tbody>
+                  {(isIG ? [...ALL_POSTS].reverse() : [...ALL_VIDEOS].reverse()).map((item: any, i) => (
+                    <tr key={i} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                      <td className="py-3 pr-4 text-gray-900 whitespace-nowrap">{item.date}</td>
+                      <td className="py-3 pr-4">
+                        {isIG && (
+                          <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                            item.type === "Reel" ? "bg-pink-50 text-pink-600" :
+                            item.type === "Carousel" ? "bg-blue-50 text-blue-600" :
+                            "bg-gray-100 text-gray-600"
+                          }`}>
+                            {item.type}
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-3 pr-4 text-gray-600 max-w-[240px] truncate">{item.desc || item.title}</td>
+                      <td className="py-3 px-4 text-right font-medium text-gray-900">{item.views.toLocaleString()}</td>
+                      <td className="py-3 px-4 text-right font-medium text-pink-600">{item.likes}</td>
+                      <td className="py-3 px-4 text-right text-gray-600">{item.shares}</td>
+                      <td className="py-3 px-4 text-right text-gray-600">{item.comments}</td>
+                      {isIG && <td className="py-3 px-4 text-right text-gray-600">{item.saves}</td>}
+                      {isIG && <td className="py-3 pl-4 text-right text-gray-600">{item.follows || "—"}</td>}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
