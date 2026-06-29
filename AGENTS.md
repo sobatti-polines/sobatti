@@ -1,5 +1,5 @@
 # AGENTS.md — SobatTi Landing
-
+# DONT OPEN/USE BROWSER FOR TESTING
 ## Project Overview
 
 Next.js 16 landing page for **SobatTi** — IT mentoring & project coaching. Follows the **Coinbase design system** (see `DESIGN.md`).
