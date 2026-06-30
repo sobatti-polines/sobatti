@@ -567,7 +567,8 @@ export default function Dashboard() {
                   ))}
                   <LabelList dataKey="value" position="top" content={({ x, y, width, value, index }: any) => {
                     const data = isIG ? igPeakChartData : isTT ? ttPeakChartData : webPeakChartData
-                    const entry = data[index]
+                    const entry = index !== undefined ? data[index] : null
+                    if (!entry) return <text x={x + width / 2} y={y - 8} textAnchor="middle" fill="#0a0b0d" fontWeight={700} fontSize={13}>{value.toLocaleString()}</text>
                     return (
                       <g>
                         <text x={x + width / 2} y={y - 22} textAnchor="middle" fill="#0a0b0d" fontWeight={700} fontSize={13}>
