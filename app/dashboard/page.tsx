@@ -12,6 +12,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Cell,
+  LabelList,
 } from "recharts";
 import {
   ArrowUpRight,
@@ -149,57 +151,47 @@ const webTotalNewUsers = WEB_DATA.reduce((a, d) => a + d.web_new_users, 0);
 const webTotalEngagementEvents = WEB_DATA.reduce((a, d) => a + d.web_engagement_events, 0);
 const webTotalScrolls = WEB_DATA.reduce((a, d) => a + d.web_scrolls, 0);
 
-// Peak value computations
-const igPeakViews = IG_DATA.reduce((a, b) => a.ig_views > b.ig_views ? a : b)
-const igPeakReach = IG_DATA.reduce((a, b) => a.ig_reach > b.ig_reach ? a : b)
-const igPeakLikes = IG_DATA.reduce((a, b) => a.ig_likes > b.ig_likes ? a : b)
-const igPeakShares = IG_DATA.reduce((a, b) => a.ig_shares > b.ig_shares ? a : b)
-const igPeakComments = IG_DATA.reduce((a, b) => a.ig_comments > b.ig_comments ? a : b)
-const igPeakInteractions = IG_DATA.reduce((a, b) => a.ig_interactions > b.ig_interactions ? a : b)
-const igPeakVisits = IG_DATA.reduce((a, b) => a.ig_visits > b.ig_visits ? a : b)
-const igPeakLinkClicks = IG_DATA.reduce((a, b) => a.ig_link_clicks > b.ig_link_clicks ? a : b)
+// Peak chart data with growth percentage
+function computePeakEntry<T extends Record<string, any>>(
+  data: T[],
+  key: string,
+  label: string
+): { label: string; value: number; week: string; growth: number | null } {
+  const peak = data.reduce((a: any, b: any) => Number(b[key]) > Number(a[key]) ? b : a)
+  const idx = data.findIndex((d: any) => d.week === peak.week)
+  const prevVal = idx > 0 ? Number((data as any)[idx - 1][key]) : 0
+  const value = Number(peak[key])
+  const growth = idx > 0 && prevVal !== 0 ? ((value - prevVal) / prevVal) * 100 : null
+  return { label, value, week: peak.week, growth }
+}
 
-const ttPeakViews = TT_DATA.reduce((a, b) => a.tt_views > b.tt_views ? a : b)
-const ttPeakProfileViews = TT_DATA.reduce((a, b) => a.tt_profile_views > b.tt_profile_views ? a : b)
-const ttPeakLikes = TT_DATA.reduce((a, b) => a.tt_likes > b.tt_likes ? a : b)
-const ttPeakComments = TT_DATA.reduce((a, b) => a.tt_comments > b.tt_comments ? a : b)
-const ttPeakShares = TT_DATA.reduce((a, b) => a.tt_shares > b.tt_shares ? a : b)
-const ttPeakNewFollowers = TT_DATA.reduce((a, b) => a.tt_new_followers > b.tt_new_followers ? a : b)
-
-const webPeakActiveUsers = WEB_DATA.reduce((a, b) => a.web_active_users > b.web_active_users ? a : b)
-const webPeakNewUsers = WEB_DATA.reduce((a, b) => a.web_new_users > b.web_new_users ? a : b)
-const webPeakPageViews = WEB_DATA.reduce((a, b) => a.web_page_views > b.web_page_views ? a : b)
-const webPeakSessions = WEB_DATA.reduce((a, b) => a.web_sessions > b.web_sessions ? a : b)
-const webPeakEngagementTime = WEB_DATA.reduce((a, b) => a.web_engagement_time > b.web_engagement_time ? a : b)
-const webPeakEngagementEvents = WEB_DATA.reduce((a, b) => a.web_engagement_events > b.web_engagement_events ? a : b)
-
-const igPeakMetrics = [
-  { label: "Views", week: igPeakViews.week, value: igPeakViews.ig_views },
-  { label: "Reach", week: igPeakReach.week, value: igPeakReach.ig_reach },
-  { label: "Likes", week: igPeakLikes.week, value: igPeakLikes.ig_likes },
-  { label: "Shares", week: igPeakShares.week, value: igPeakShares.ig_shares },
-  { label: "Comments", week: igPeakComments.week, value: igPeakComments.ig_comments },
-  { label: "Interactions", week: igPeakInteractions.week, value: igPeakInteractions.ig_interactions },
-  { label: "Profile Visits", week: igPeakVisits.week, value: igPeakVisits.ig_visits },
-  { label: "Link Clicks", week: igPeakLinkClicks.week, value: igPeakLinkClicks.ig_link_clicks },
+const igPeakChartData = [
+  computePeakEntry(IG_DATA, "ig_views", "Views"),
+  computePeakEntry(IG_DATA, "ig_reach", "Reach"),
+  computePeakEntry(IG_DATA, "ig_likes", "Likes"),
+  computePeakEntry(IG_DATA, "ig_shares", "Shares"),
+  computePeakEntry(IG_DATA, "ig_comments", "Comments"),
+  computePeakEntry(IG_DATA, "ig_interactions", "Interactions"),
+  computePeakEntry(IG_DATA, "ig_visits", "Profile Visits"),
+  computePeakEntry(IG_DATA, "ig_link_clicks", "Link Clicks"),
 ]
 
-const ttPeakMetrics = [
-  { label: "Views", week: ttPeakViews.week, value: ttPeakViews.tt_views },
-  { label: "Profile Views", week: ttPeakProfileViews.week, value: ttPeakProfileViews.tt_profile_views },
-  { label: "Likes", week: ttPeakLikes.week, value: ttPeakLikes.tt_likes },
-  { label: "Comments", week: ttPeakComments.week, value: ttPeakComments.tt_comments },
-  { label: "Shares", week: ttPeakShares.week, value: ttPeakShares.tt_shares },
-  { label: "New Followers", week: ttPeakNewFollowers.week, value: ttPeakNewFollowers.tt_new_followers },
+const ttPeakChartData = [
+  computePeakEntry(TT_DATA, "tt_views", "Views"),
+  computePeakEntry(TT_DATA, "tt_profile_views", "Profile Views"),
+  computePeakEntry(TT_DATA, "tt_likes", "Likes"),
+  computePeakEntry(TT_DATA, "tt_comments", "Comments"),
+  computePeakEntry(TT_DATA, "tt_shares", "Shares"),
+  computePeakEntry(TT_DATA, "tt_new_followers", "New Followers"),
 ]
 
-const webPeakMetrics = [
-  { label: "Active Users", week: webPeakActiveUsers.week, value: webPeakActiveUsers.web_active_users },
-  { label: "New Users", week: webPeakNewUsers.week, value: webPeakNewUsers.web_new_users },
-  { label: "Page Views", week: webPeakPageViews.week, value: webPeakPageViews.web_page_views },
-  { label: "Sessions", week: webPeakSessions.week, value: webPeakSessions.web_sessions },
-  { label: "Engagement Time", week: webPeakEngagementTime.week, value: webPeakEngagementTime.web_engagement_time },
-  { label: "Engagement Events", week: webPeakEngagementEvents.week, value: webPeakEngagementEvents.web_engagement_events },
+const webPeakChartData = [
+  computePeakEntry(WEB_DATA, "web_active_users", "Active Users"),
+  computePeakEntry(WEB_DATA, "web_new_users", "New Users"),
+  computePeakEntry(WEB_DATA, "web_page_views", "Page Views"),
+  computePeakEntry(WEB_DATA, "web_sessions", "Sessions"),
+  computePeakEntry(WEB_DATA, "web_engagement_time", "Engagement Time"),
+  computePeakEntry(WEB_DATA, "web_engagement_events", "Engagement Events"),
 ]
 
 const webChannels = [
@@ -259,6 +251,27 @@ function DeltaTooltip({ active, payload, label, data: chartData }: any) {
             )
           })}
         </div>
+      </div>
+    )
+  }
+  return null
+}
+
+function PeakTooltip({ active, payload }: any) {
+  if (active && payload && payload.length) {
+    const entry = payload[0].payload
+    return (
+      <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-lg min-w-[180px]">
+        <p className="font-semibold text-gray-800 mb-1">{entry.label}</p>
+        <div className="text-2xl font-bold text-gray-900">{entry.value.toLocaleString()}</div>
+        <p className="text-xs text-gray-500 mt-1">Peak: {entry.week}</p>
+        {entry.growth !== null && (
+          <div className="flex items-center gap-1 mt-2 pt-2 border-t border-gray-100">
+            <span className={`text-sm font-semibold ${entry.growth >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+              {entry.growth >= 0 ? '+' : ''}{entry.growth.toFixed(1)}% WoW
+            </span>
+          </div>
+        )}
       </div>
     )
   }
@@ -537,19 +550,40 @@ export default function Dashboard() {
 
         {/* PEAK VALUES SUMMARY */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-8">
-          <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
+          <h2 className="text-lg font-semibold mb-2 flex items-center gap-2">
             <Trophy className="w-5 h-5 text-amber-500" /> Peak Values Summary
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {(isIG ? igPeakMetrics : isTT ? ttPeakMetrics : webPeakMetrics).map((m) => (
-              <div key={m.label} className="border border-gray-100 rounded-xl p-4 hover:border-amber-200 hover:shadow-sm transition-all">
-                <span className="text-gray-500 text-xs font-medium uppercase tracking-wider">{m.label}</span>
-                <div className="text-2xl font-bold mt-1 text-gray-900">{m.value.toLocaleString()}</div>
-                <div className="text-xs text-gray-400 mt-1.5 flex items-center gap-1">
-                  <Trophy className="w-3 h-3 text-amber-400" /> {m.week}
-                </div>
-              </div>
-            ))}
+          <p className="text-sm text-gray-500 mb-6">Highest recorded metric values with week-over-week growth at peak</p>
+          <div className="h-[350px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={isIG ? igPeakChartData : isTT ? ttPeakChartData : webPeakChartData} margin={{ top: 30, right: 20, left: 10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 11 }} dy={6} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 12 }} tickFormatter={(val) => val >= 1000 ? `${(val / 1000).toFixed(1)}k` : val} />
+                <Tooltip content={<PeakTooltip />} cursor={{ fill: '#F3F4F6' }} />
+                <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={60}>
+                  {(isIG ? igPeakChartData : isTT ? ttPeakChartData : webPeakChartData).map((entry, i) => (
+                    <Cell key={i} fill={entry.growth !== null && entry.growth >= 0 ? COLORS.blue : entry.growth !== null && entry.growth < 0 ? COLORS.orange : COLORS.muted} />
+                  ))}
+                  <LabelList dataKey="value" position="top" content={({ x, y, width, value, index }: any) => {
+                    const data = isIG ? igPeakChartData : isTT ? ttPeakChartData : webPeakChartData
+                    const entry = data[index]
+                    return (
+                      <g>
+                        <text x={x + width / 2} y={y - 22} textAnchor="middle" fill="#0a0b0d" fontWeight={700} fontSize={13}>
+                          {value.toLocaleString()}
+                        </text>
+                        {entry.growth !== null && (
+                          <text x={x + width / 2} y={y - 7} textAnchor="middle" fill={entry.growth >= 0 ? '#059669' : '#dc2626'} fontWeight={600} fontSize={11}>
+                            {entry.growth >= 0 ? '+' : ''}{entry.growth.toFixed(1)}%
+                          </text>
+                        )}
+                      </g>
+                    )
+                  }} />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
