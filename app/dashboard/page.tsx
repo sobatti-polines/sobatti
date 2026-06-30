@@ -27,6 +27,7 @@ import {
   BarChart3,
   Music,
   Globe,
+  Trophy,
 } from "lucide-react";
 
 const IG_DATA = [
@@ -147,6 +148,60 @@ const webTotalSessions = WEB_DATA.reduce((a, d) => a + d.web_sessions, 0);
 const webTotalNewUsers = WEB_DATA.reduce((a, d) => a + d.web_new_users, 0);
 const webTotalEngagementEvents = WEB_DATA.reduce((a, d) => a + d.web_engagement_events, 0);
 const webTotalScrolls = WEB_DATA.reduce((a, d) => a + d.web_scrolls, 0);
+
+// Peak value computations
+const igPeakViews = IG_DATA.reduce((a, b) => a.ig_views > b.ig_views ? a : b)
+const igPeakReach = IG_DATA.reduce((a, b) => a.ig_reach > b.ig_reach ? a : b)
+const igPeakLikes = IG_DATA.reduce((a, b) => a.ig_likes > b.ig_likes ? a : b)
+const igPeakShares = IG_DATA.reduce((a, b) => a.ig_shares > b.ig_shares ? a : b)
+const igPeakComments = IG_DATA.reduce((a, b) => a.ig_comments > b.ig_comments ? a : b)
+const igPeakInteractions = IG_DATA.reduce((a, b) => a.ig_interactions > b.ig_interactions ? a : b)
+const igPeakVisits = IG_DATA.reduce((a, b) => a.ig_visits > b.ig_visits ? a : b)
+const igPeakLinkClicks = IG_DATA.reduce((a, b) => a.ig_link_clicks > b.ig_link_clicks ? a : b)
+
+const ttPeakViews = TT_DATA.reduce((a, b) => a.tt_views > b.tt_views ? a : b)
+const ttPeakProfileViews = TT_DATA.reduce((a, b) => a.tt_profile_views > b.tt_profile_views ? a : b)
+const ttPeakLikes = TT_DATA.reduce((a, b) => a.tt_likes > b.tt_likes ? a : b)
+const ttPeakComments = TT_DATA.reduce((a, b) => a.tt_comments > b.tt_comments ? a : b)
+const ttPeakShares = TT_DATA.reduce((a, b) => a.tt_shares > b.tt_shares ? a : b)
+const ttPeakNewFollowers = TT_DATA.reduce((a, b) => a.tt_new_followers > b.tt_new_followers ? a : b)
+
+const webPeakActiveUsers = WEB_DATA.reduce((a, b) => a.web_active_users > b.web_active_users ? a : b)
+const webPeakNewUsers = WEB_DATA.reduce((a, b) => a.web_new_users > b.web_new_users ? a : b)
+const webPeakPageViews = WEB_DATA.reduce((a, b) => a.web_page_views > b.web_page_views ? a : b)
+const webPeakSessions = WEB_DATA.reduce((a, b) => a.web_sessions > b.web_sessions ? a : b)
+const webPeakEngagementTime = WEB_DATA.reduce((a, b) => a.web_engagement_time > b.web_engagement_time ? a : b)
+const webPeakEngagementEvents = WEB_DATA.reduce((a, b) => a.web_engagement_events > b.web_engagement_events ? a : b)
+
+const igPeakMetrics = [
+  { label: "Views", week: igPeakViews.week, value: igPeakViews.ig_views },
+  { label: "Reach", week: igPeakReach.week, value: igPeakReach.ig_reach },
+  { label: "Likes", week: igPeakLikes.week, value: igPeakLikes.ig_likes },
+  { label: "Shares", week: igPeakShares.week, value: igPeakShares.ig_shares },
+  { label: "Comments", week: igPeakComments.week, value: igPeakComments.ig_comments },
+  { label: "Interactions", week: igPeakInteractions.week, value: igPeakInteractions.ig_interactions },
+  { label: "Profile Visits", week: igPeakVisits.week, value: igPeakVisits.ig_visits },
+  { label: "Link Clicks", week: igPeakLinkClicks.week, value: igPeakLinkClicks.ig_link_clicks },
+]
+
+const ttPeakMetrics = [
+  { label: "Views", week: ttPeakViews.week, value: ttPeakViews.tt_views },
+  { label: "Profile Views", week: ttPeakProfileViews.week, value: ttPeakProfileViews.tt_profile_views },
+  { label: "Likes", week: ttPeakLikes.week, value: ttPeakLikes.tt_likes },
+  { label: "Comments", week: ttPeakComments.week, value: ttPeakComments.tt_comments },
+  { label: "Shares", week: ttPeakShares.week, value: ttPeakShares.tt_shares },
+  { label: "New Followers", week: ttPeakNewFollowers.week, value: ttPeakNewFollowers.tt_new_followers },
+]
+
+const webPeakMetrics = [
+  { label: "Active Users", week: webPeakActiveUsers.week, value: webPeakActiveUsers.web_active_users },
+  { label: "New Users", week: webPeakNewUsers.week, value: webPeakNewUsers.web_new_users },
+  { label: "Page Views", week: webPeakPageViews.week, value: webPeakPageViews.web_page_views },
+  { label: "Sessions", week: webPeakSessions.week, value: webPeakSessions.web_sessions },
+  { label: "Engagement Time", week: webPeakEngagementTime.week, value: webPeakEngagementTime.web_engagement_time },
+  { label: "Engagement Events", week: webPeakEngagementEvents.week, value: webPeakEngagementEvents.web_engagement_events },
+]
+
 const webChannels = [
   { channel: "Direct", users: 531 },
   { channel: "Organic Social", users: 6 },
@@ -473,6 +528,24 @@ export default function Dashboard() {
               </div>
             </>
           )}
+        </div>
+
+        {/* PEAK VALUES SUMMARY */}
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-8">
+          <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
+            <Trophy className="w-5 h-5 text-amber-500" /> Peak Values Summary
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {(isIG ? igPeakMetrics : isTT ? ttPeakMetrics : webPeakMetrics).map((m) => (
+              <div key={m.label} className="border border-gray-100 rounded-xl p-4 hover:border-amber-200 hover:shadow-sm transition-all">
+                <span className="text-gray-500 text-xs font-medium uppercase tracking-wider">{m.label}</span>
+                <div className="text-2xl font-bold mt-1 text-gray-900">{m.value.toLocaleString()}</div>
+                <div className="text-xs text-gray-400 mt-1.5 flex items-center gap-1">
+                  <Trophy className="w-3 h-3 text-amber-400" /> {m.week}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* CHARTS */}
