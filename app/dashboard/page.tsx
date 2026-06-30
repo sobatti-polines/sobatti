@@ -120,6 +120,28 @@ const COLORS = {
   lightTeal: "#14b8a6",
 };
 
+function makeCumulative<T extends Record<string, any>>(
+  data: T[],
+  excludeKeys: string[] = []
+): T[] {
+  const accum: Record<string, number> = {}
+  return data.map((d) => {
+    const copy = { ...d }
+    for (const key of Object.keys(d)) {
+      if (key === "week" || excludeKeys.includes(key)) continue
+      const val = Number(d[key])
+      if (isNaN(val)) continue
+      accum[key] = (accum[key] || 0) + val
+      ;(copy as any)[key] = accum[key]
+    }
+    return copy
+  })
+}
+
+const IG_DATA_CUMULATIVE = makeCumulative(IG_DATA, ["ig_followers", "ig_reels", "ig_images", "ig_carousels"])
+const TT_DATA_CUMULATIVE = makeCumulative(TT_DATA, ["tt_followers", "tt_videos"])
+const WEB_DATA_CUMULATIVE = makeCumulative(WEB_DATA)
+
 type Platform = "instagram" | "tiktok" | "web";
 
 const igTopPost = ALL_POSTS.reduce((best, p) => p.views > (best?.views || 0) ? p : best);
@@ -292,7 +314,7 @@ export default function Dashboard() {
   const isIG = platform === "instagram";
   const isTT = platform === "tiktok";
   const isWeb = platform === "web";
-  const data: any[] = isIG ? IG_DATA : isTT ? TT_DATA : WEB_DATA;
+  const data: any[] = isIG ? IG_DATA_CUMULATIVE : isTT ? TT_DATA_CUMULATIVE : WEB_DATA_CUMULATIVE;
 
   return (
     <div className="min-h-screen bg-[#FDFDFD] text-[#0a0b0d] font-sans">
