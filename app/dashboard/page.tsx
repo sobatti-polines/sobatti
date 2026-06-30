@@ -231,7 +231,7 @@ function DeltaTooltip({ active, payload, label, data: chartData }: any) {
     const idx = chartData.findIndex((d: any) => d.week === label)
     const prev = idx > 0 ? chartData[idx - 1] : null
     return (
-      <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-lg min-w-[200px]">
+      <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-lg min-w-[220px]">
         <p className="font-semibold text-gray-800 mb-2">{label}</p>
         {prev && <p className="text-[11px] text-gray-400 mb-2">vs {prev.week}</p>}
         <div className="flex flex-col gap-1.5">
@@ -241,9 +241,14 @@ function DeltaTooltip({ active, payload, label, data: chartData }: any) {
             let delta = null
             if (prev && prev[key] !== undefined) {
               const diff = val - prev[key]
-              if (diff > 0) delta = <span className="text-emerald-600 font-semibold ml-2">+{diff.toLocaleString()}</span>
-              else if (diff < 0) delta = <span className="text-red-500 font-semibold ml-2">{diff.toLocaleString()}</span>
-              else delta = <span className="text-gray-400 ml-2">0</span>
+              const pct = prev[key] !== 0 ? (diff / prev[key]) * 100 : null
+              if (diff > 0) {
+                const pctStr = pct !== null ? `(+${pct.toFixed(1)}%)` : ""
+                delta = <span className="text-emerald-600 font-semibold ml-2">+{diff.toLocaleString()} <span className="text-emerald-500 text-[11px]">{pctStr}</span></span>
+              } else if (diff < 0) {
+                const pctStr = pct !== null ? `(${pct.toFixed(1)}%)` : ""
+                delta = <span className="text-red-500 font-semibold ml-2">{diff.toLocaleString()} <span className="text-red-400 text-[11px]">{pctStr}</span></span>
+              } else delta = <span className="text-gray-400 ml-2">0</span>
             }
             return (
               <div key={i} className="flex items-center text-sm w-full">
