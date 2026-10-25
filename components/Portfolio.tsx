@@ -123,6 +123,7 @@ const clientProjects = [
       "Laporan Keuangan",
     ],
     stack: ["Next.js", "Prisma"],
+    link: "https://putralogamkencana.web.id",
   },
   {
     id: "askonveksi",
@@ -141,6 +142,7 @@ const clientProjects = [
       "Laporan Penjualan",
     ],
     stack: ["Next.js", "Prisma"],
+    link: "https://askonveksi.web.id",
   },
 ];
 
@@ -237,13 +239,31 @@ export default function Portfolio() {
             >
               {/* Screenshot */}
               <div className={`relative aspect-[16/10] overflow-hidden rounded-[16px] md:rounded-[20px] bg-white ${index % 2 === 1 ? "md:order-2" : ""}`}>
-                <Image
-                  src={project.image}
-                  alt={`Screenshot sistem ${project.client}`}
-                  fill
-                  className="object-cover object-top transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 600px"
-                />
+                {("link" in project && project.link) || ("repo" in project && project.repo) ? (
+                  <a
+                    href={"link" in project && project.link ? project.link : ("repo" in project ? project.repo : "#")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block relative w-full h-full"
+                    title={`Buka ${project.client}`}
+                  >
+                    <Image
+                      src={project.image}
+                      alt={`Screenshot sistem ${project.client}`}
+                      fill
+                      className="object-cover object-top transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 600px"
+                    />
+                  </a>
+                ) : (
+                  <Image
+                    src={project.image}
+                    alt={`Screenshot sistem ${project.client}`}
+                    fill
+                    className="object-cover object-top transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 600px"
+                  />
+                )}
               </div>
 
               {/* Konten */}
@@ -285,17 +305,30 @@ export default function Portfolio() {
                   ))}
                 </div>
 
-                {"repo" in project && project.repo && (
-                  <div className="mt-5 pt-4 border-t border-foreground/[0.06] flex items-center">
-                    <a
-                      href={project.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-sans text-[12px] sm:text-[13px] font-semibold text-accent-blue hover:text-accent-orange transition-colors"
-                    >
-                      Lihat Detail & Source Code di GitHub
-                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                    </a>
+                {("link" in project || "repo" in project) && (
+                  <div className="mt-5 pt-4 border-t border-foreground/[0.06] flex flex-wrap items-center gap-4">
+                    {"link" in project && project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 font-sans text-[12px] sm:text-[13px] font-semibold text-accent-blue hover:text-accent-orange transition-colors"
+                      >
+                        Kunjungi Website Live
+                        <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </a>
+                    )}
+                    {"repo" in project && project.repo && (
+                      <a
+                        href={project.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/60 hover:text-accent-orange transition-colors"
+                      >
+                        Source Code GitHub
+                        <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </a>
+                    )}
                   </div>
                 )}
               </div>
