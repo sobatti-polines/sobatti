@@ -62,6 +62,48 @@ const portfolioItems = [
   }
 ];
 
+// Project klien nyata — isi `image` dengan path screenshot di /public/images/
+// (mis. "/images/erp-plk.webp"), dan sesuaikan `modules` sesuai fitur sistem.
+const clientProjects = [
+  {
+    id: "plk",
+    client: "Putra Logam Kencana",
+    industry: "Toko Bangunan",
+    description:
+      "Sistem ERP + CRM terintegrasi untuk mengelola operasional toko bangunan — mulai dari stok & pembelian hingga penjualan, piutang, dan relasi pelanggan dalam satu platform.",
+    image: "/images/erp-plk.webp",
+    modules: [
+      "Manajemen Stok",
+      "Pembelian & Supplier",
+      "Penjualan & Faktur",
+      "Piutang & Hutang",
+      "Kas & Bank",
+      "Data Pelanggan (CRM)",
+      "Follow-up Sales",
+      "Laporan Keuangan",
+    ],
+    stack: ["Next.js", "Prisma"],
+  },
+  {
+    id: "askonveksi",
+    client: "AsKonveksi",
+    industry: "Konveksi",
+    description:
+      "Sistem ERP + CRM untuk bisnis konveksi — mengelola order produksi, bahan baku, progres jahit, hingga relasi pelanggan dalam satu dashboard.",
+    image: "/images/erp-askonveksi.webp",
+    modules: [
+      "Manajemen Order",
+      "Produksi & Progres",
+      "Stok Bahan Baku",
+      "Data Pelanggan (CRM)",
+      "Follow-up Sales",
+      "Faktur & Pembayaran",
+      "Laporan Penjualan",
+    ],
+    stack: ["Next.js", "Prisma"],
+  },
+];
+
 export default function Portfolio() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -120,44 +162,126 @@ export default function Portfolio() {
 
   return (
     <section id="portfolio" className="bg-white py-24 md:py-32 relative overflow-hidden">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 relative z-10 mb-12 md:mb-20">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <div>
-            <SectionLabel number="08" title="Portofolio" dark={false} />
-            <motion.h2
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 relative z-10 mb-12 md:mb-16">
+        <SectionLabel number="05" title="Portofolio" dark={false} />
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display text-[clamp(40px,6vw,72px)] font-normal leading-[1.00] tracking-[-0.02em] text-foreground max-w-[800px]"
+        >
+          Karya dan <br className="hidden sm:block" />
+          Hasil Mentoring
+        </motion.h2>
+      </div>
+
+      {/* ── Featured: Project Klien ── */}
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 relative z-10 mb-16 md:mb-24">
+        <div className="flex items-center gap-4 mb-8 md:mb-10">
+          <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.2em] uppercase text-accent-orange">
+            project klien
+          </span>
+          <div className="h-px flex-1 bg-foreground/10" />
+        </div>
+
+        <div className="flex flex-col gap-6 md:gap-10">
+          {clientProjects.map((project, index) => (
+            <motion.article
+              key={project.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(40px,6vw,72px)] font-normal leading-[1.00] tracking-[-0.02em] text-foreground max-w-[800px]"
+              transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center bg-cool-gray/50 border border-foreground/[0.06] rounded-[24px] md:rounded-[32px] p-4 md:p-6"
             >
-              Karya dan <br className="hidden sm:block" />
-              Hasil Mentoring
-            </motion.h2>
+              {/* Screenshot */}
+              <div className={`relative aspect-[16/10] overflow-hidden rounded-[16px] md:rounded-[20px] bg-white ${index % 2 === 1 ? "md:order-2" : ""}`}>
+                <Image
+                  src={project.image}
+                  alt={`Screenshot sistem ${project.client}`}
+                  fill
+                  className="object-cover object-top transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 600px"
+                />
+              </div>
+
+              {/* Konten */}
+              <div className="px-2 md:px-4 pb-4 md:pb-6">
+                <span className="inline-block font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.15em] uppercase text-accent-blue bg-white px-3 py-1.5 rounded-full border border-foreground/[0.08] mb-4 md:mb-5">
+                  {project.industry}
+                </span>
+                <h3 className="font-display text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.02em] text-foreground mb-3 md:mb-4">
+                  {project.client}
+                </h3>
+                <p className="font-body text-[15px] sm:text-[16px] leading-[1.7] text-foreground/50 mb-6 md:mb-7">
+                  {project.description}
+                </p>
+
+                <div className="mb-5 md:mb-6">
+                  <div className="font-sans text-[10px] sm:text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/35 mb-3">
+                    modul sistem
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {project.modules.map((modul) => (
+                      <span
+                        key={modul}
+                        className="font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.03em] text-foreground/60 bg-white px-3 py-1.5 rounded-full border border-foreground/[0.08]"
+                      >
+                        {modul}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {project.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.05em] text-foreground/40 bg-cool-gray px-3 py-1.5 rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Carousel: Hasil Mentoring ── */}
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 relative z-10 mb-8 md:mb-10">
+        <div className="flex items-end justify-between gap-8">
+          <div className="flex items-center gap-4">
+            <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.2em] uppercase text-accent-orange">
+              hasil mentoring
+            </span>
+            <div className="h-px flex-1 sm:max-w-[60px] bg-foreground/10" />
           </div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center gap-4"
           >
-            <button 
+            <button
               onClick={() => scroll("left")}
               disabled={!canScrollLeft}
-              className="w-14 h-14 rounded-full border border-foreground/15 flex items-center justify-center text-foreground hover:bg-accent-blue hover:border-accent-blue hover:text-white transition-all duration-300 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:border-foreground/15 disabled:hover:text-foreground"
+              className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-foreground/15 flex items-center justify-center text-foreground hover:bg-accent-blue hover:border-accent-blue hover:text-white transition-all duration-300 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:border-foreground/15 disabled:hover:text-foreground"
               aria-label="Previous project"
             >
-              <ArrowLeft className="w-6 h-6" />
+              <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
             </button>
-            <button 
+            <button
               onClick={() => scroll("right")}
               disabled={!canScrollRight}
-              className="w-14 h-14 rounded-full border border-foreground/15 flex items-center justify-center text-foreground hover:bg-accent-blue hover:border-accent-blue hover:text-white transition-all duration-300 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:border-foreground/15 disabled:hover:text-foreground"
+              className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-foreground/15 flex items-center justify-center text-foreground hover:bg-accent-blue hover:border-accent-blue hover:text-white transition-all duration-300 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:border-foreground/15 disabled:hover:text-foreground"
               aria-label="Next project"
             >
-              <ArrowRight className="w-6 h-6" />
+              <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
             </button>
           </motion.div>
         </div>

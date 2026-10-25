@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Announcement, AnnouncementTitle } from "@/components/ui/announcement";
+import { ArrowRight } from "lucide-react";
 
 const words = ["Web", "Video", "UI/UX", "IoT", "Mobile"];
 
@@ -220,21 +221,39 @@ export default function Hero() {
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 w-full">
         <div className="max-w-[860px] mx-auto text-center">
-          {/* Eyebrow */}
+          {/* Eyebrow / Promo Pill */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="mb-6 md:mb-8"
           >
-            <Announcement className="bg-accent-orange/[0.06] border-accent-orange/20">
-              <Badge variant="default" className="bg-accent-orange text-white">
-                Promo4
-              </Badge>
-              <AnnouncementTitle className="text-accent-orange/80">
-                Diskon 60% — Untuk Polines
-              </AnnouncementTitle>
-            </Announcement>
+            <Link
+              href="#portfolio"
+              className="inline-flex items-center group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange/40 rounded-full"
+            >
+              <Announcement className="bg-accent-orange/[0.08] hover:bg-accent-orange/[0.14] border-accent-orange/30 hover:border-accent-orange/50 transition-all duration-300 shadow-xs shadow-accent-orange/5 px-2.5 py-1">
+                <Badge
+                  variant="default"
+                  className="bg-accent-orange text-white text-[11px] sm:text-xs font-semibold px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-xs uppercase tracking-wider"
+                >
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white" />
+                  </span>
+                  PROMO
+                </Badge>
+                <AnnouncementTitle className="text-accent-orange font-medium text-xs sm:text-sm flex items-center gap-1.5 pr-1">
+                  <span>
+                    Special ERP Website{" "}
+                    <span className="text-accent-orange/80 font-normal hidden sm:inline">
+                      — Solusi Sistem Custom & Bimbingan Proyek
+                    </span>
+                  </span>
+                  <ArrowRight className="size-3.5 text-accent-orange/70 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </AnnouncementTitle>
+              </Announcement>
+            </Link>
           </motion.div>
 
           {/* Headline */}

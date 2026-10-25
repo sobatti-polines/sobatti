@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 const footerLinks = [
   {
@@ -24,7 +25,7 @@ const footerLinks = [
     links: [
       { label: "instagram", href: "https://instagram.com/sobat.ti" },
       { label: "tiktok", href: "https://tiktok.com/@sobat.ti" },
-      { label: "whatsapp", href: "https://wa.me/62895365896938" },
+      { label: "whatsapp", href: "https://wa.me/6285327072575" },
     ],
   },
 ]
@@ -36,8 +37,14 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8">
           {/* Brand column */}
           <div className="col-span-2 sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="font-display text-[22px] sm:text-[24px] font-medium tracking-tight text-accent-orange">
-              sobatti
+            <Link href="/" className="inline-block group">
+              <Image
+                src="/logo_sobti.webp"
+                alt="SobatTi Mentoring & Project Coaching"
+                width={140}
+                height={40}
+                className="h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105"
+              />
             </Link>
             <p className="mt-4 md:mt-5 font-body text-[15px] sm:text-[17px] leading-[1.7] text-white/35 max-w-[220px]">
               Bimbel IT di Semarang. Platform bimbingan IT dan mentoring proyek terlengkap dan terpercaya.

@@ -59,19 +59,17 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-dark-surface hover:bg-[#141519] border border-white/10 hover:border-accent-orange/40 transition-all duration-200 shadow-md group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange"
           onClick={() => setMobileOpen(false)}
         >
           <Image
-            src="/logo.svg"
-            alt="SobatTi"
-            width={36}
+            src="/logo_sobti.webp"
+            alt="SobatTi Mentoring & Project Coaching"
+            width={130}
             height={36}
-            className="w-8 h-8 sm:w-9 sm:h-9"
+            className="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105"
+            priority
           />
-          <span className="font-display text-[20px] sm:text-[24px] font-medium tracking-tight">
-            <span className="text-accent-blue">Sobat</span><span className="text-accent-orange">Ti</span>
-          </span>
         </Link>
 
         {/* Centered Nav — desktop only */}

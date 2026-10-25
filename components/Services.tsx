@@ -24,12 +24,6 @@ const services = [
     tags: ["Figma", "Prototyping", "Riset"],
   },
   {
-    title: "Video Editting",
-    description:
-      "Tingkatkan kemampuan penyuntingan video profesional dari teknik dasar hingga lanjutan. Hasil berkualitas tinggi untuk berbagai platform digital.",
-    tags: ["Premiere", "After Effects", "DaVinci"],
-  },
-  {
     title: "Internet of Things",
     description:
       "Pelajari pengembangan IoT dari perangkat keras hingga integrasi sistem. Bangun solusi IoT yang fungsional dan terukur.",

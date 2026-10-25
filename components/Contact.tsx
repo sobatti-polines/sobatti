@@ -8,7 +8,7 @@ export default function Contact() {
   return (
     <section id="contact" className="bg-white section-padding">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-        <SectionLabel number="07" title="kontak" />
+        <SectionLabel number="08" title="kontak" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-start">
           {/* Left — CTA */}
@@ -28,7 +28,7 @@ export default function Contact() {
 
             <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link
-                href="https://wa.me/62895365896938"
+                href="https://wa.me/6285327072575"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
@@ -71,12 +71,12 @@ export default function Contact() {
               <div>
                 <div className="font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/40 mb-1">WhatsApp</div>
                 <Link
-                  href="https://wa.me/62895365896938"
+                  href="https://wa.me/6285327072575"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-sans text-[15px] sm:text-[17px] font-semibold text-foreground hover:text-accent-orange transition-colors"
                 >
-                  +62 895-3658-96938
+                  +62 853-2707-2575
                 </Link>
               </div>
 
