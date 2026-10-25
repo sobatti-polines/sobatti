@@ -66,6 +66,46 @@ const portfolioItems = [
 // (mis. "/images/erp-plk.webp"), dan sesuaikan `modules` sesuai fitur sistem.
 const clientProjects = [
   {
+    id: "jaggad-academy",
+    client: "Jaggad Academy",
+    industry: "E-Learning & Digital Products",
+    description:
+      "Platform edukasi digital modern untuk penjualan kelas online, kursus interaktif, dan produk digital seperti e-book. Dilengkapi integrasi payment gateway Midtrans (QRIS, VA, E-Wallet), Google OAuth login, member area & akses materi, serta dashboard CMS admin.",
+    image: "/images/jaggad-academy.webp",
+    modules: [
+      "Katalog Kelas & E-Book",
+      "Payment Gateway (Midtrans)",
+      "Google OAuth Login",
+      "Member Area & Akses Materi",
+      "CMS Admin & Manajemen Modul",
+      "Meta Pixel & CAPI Tracking",
+      "Manajemen Transaksi",
+      "Laporan Penjualan",
+    ],
+    stack: ["Laravel 12", "React 18", "Inertia.js", "MySQL", "Midtrans"],
+    repo: "https://github.com/HaydarAja13/jaggad-academy.git",
+  },
+  {
+    id: "gekrafs-ticketing",
+    client: "Gekrafs Ticketing",
+    industry: "Event Management & Ticketing",
+    description:
+      "Sistem pemesanan dan ticketing event digital terintegrasi — mencakup landing page event, alur checkout pemesanan tiket online, generate e-ticket ber-QR code otomatis via email, hingga scanner QR absensi check-in peserta di venue event.",
+    image: "/images/gekrafs-ticketing.webp",
+    modules: [
+      "Landing Page Event",
+      "Pemesanan & Checkout Tiket",
+      "E-Ticket & QR Code Generator",
+      "Pengiriman Tiket via Email",
+      "QR Code Scanner Absensi",
+      "Verifikasi Pembayaran",
+      "Export Data Peserta ke Excel",
+      "Sistem Referral & Komisi",
+    ],
+    stack: ["Next.js 16", "React 19", "Supabase", "Tailwind CSS v4", "QR Scanner"],
+    repo: "https://github.com/HaydarAja13/gekraf-event-jaggad.git",
+  },
+  {
     id: "plk",
     client: "Putra Logam Kencana",
     industry: "Toko Bangunan",
@@ -244,6 +284,20 @@ export default function Portfolio() {
                     </span>
                   ))}
                 </div>
+
+                {"repo" in project && project.repo && (
+                  <div className="mt-5 pt-4 border-t border-foreground/[0.06] flex items-center">
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 font-sans text-[12px] sm:text-[13px] font-semibold text-accent-blue hover:text-accent-orange transition-colors"
+                    >
+                      Lihat Detail & Source Code di GitHub
+                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </a>
+                  </div>
+                )}
               </div>
             </motion.article>
           ))}
