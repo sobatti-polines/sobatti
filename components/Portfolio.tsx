@@ -83,7 +83,6 @@ const clientProjects = [
       "Laporan Penjualan",
     ],
     stack: ["Laravel 12", "React 18", "Inertia.js", "MySQL", "Midtrans"],
-    repo: "https://github.com/HaydarAja13/jaggad-academy.git",
   },
   {
     id: "gekrafs-ticketing",
@@ -103,7 +102,6 @@ const clientProjects = [
       "Sistem Referral & Komisi",
     ],
     stack: ["Next.js 16", "React 19", "Supabase", "Tailwind CSS v4", "QR Scanner"],
-    repo: "https://github.com/HaydarAja13/gekraf-event-jaggad.git",
   },
   {
     id: "plk",
@@ -239,9 +237,9 @@ export default function Portfolio() {
             >
               {/* Screenshot */}
               <div className={`relative aspect-[16/10] overflow-hidden rounded-[16px] md:rounded-[20px] bg-white ${index % 2 === 1 ? "md:order-2" : ""}`}>
-                {("link" in project && project.link) || ("repo" in project && project.repo) ? (
+                {"link" in project && project.link ? (
                   <a
-                    href={"link" in project && project.link ? project.link : ("repo" in project ? project.repo : "#")}
+                    href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block relative w-full h-full"
@@ -305,30 +303,17 @@ export default function Portfolio() {
                   ))}
                 </div>
 
-                {("link" in project || "repo" in project) && (
-                  <div className="mt-5 pt-4 border-t border-foreground/[0.06] flex flex-wrap items-center gap-4">
-                    {"link" in project && project.link && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 font-sans text-[12px] sm:text-[13px] font-semibold text-accent-blue hover:text-accent-orange transition-colors"
-                      >
-                        Kunjungi Website Live
-                        <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                      </a>
-                    )}
-                    {"repo" in project && project.repo && (
-                      <a
-                        href={project.repo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 font-sans text-[12px] sm:text-[13px] font-semibold text-foreground/60 hover:text-accent-orange transition-colors"
-                      >
-                        Source Code GitHub
-                        <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                      </a>
-                    )}
+                {"link" in project && project.link && (
+                  <div className="mt-5 pt-4 border-t border-foreground/[0.06] flex items-center">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 font-sans text-[12px] sm:text-[13px] font-semibold text-accent-blue hover:text-accent-orange transition-colors"
+                    >
+                      Kunjungi Website Live
+                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </a>
                   </div>
                 )}
               </div>
