@@ -71,7 +71,7 @@ const clientProjects = [
     industry: "E-Learning & Digital Products",
     description:
       "Platform edukasi digital modern untuk penjualan kelas online, kursus interaktif, dan produk digital seperti e-book. Dilengkapi integrasi payment gateway Midtrans (QRIS, VA, E-Wallet), Google OAuth login, member area & akses materi, serta dashboard CMS admin.",
-    image: "/images/jaggad-academy.webp",
+    image: "/images/jaggad-academy-hero.webp",
     modules: [
       "Katalog Kelas & E-Book",
       "Payment Gateway (Midtrans)",
@@ -91,7 +91,7 @@ const clientProjects = [
     industry: "Event Management & Ticketing",
     description:
       "Sistem pemesanan dan ticketing event digital terintegrasi — mencakup landing page event, alur checkout pemesanan tiket online, generate e-ticket ber-QR code otomatis via email, hingga scanner QR absensi check-in peserta di venue event.",
-    image: "/images/gekrafs-ticketing.webp",
+    image: "/images/gekrafs-ticketing-hero.webp",
     modules: [
       "Landing Page Event",
       "Pemesanan & Checkout Tiket",
@@ -111,7 +111,7 @@ const clientProjects = [
     industry: "Toko Bangunan",
     description:
       "Sistem ERP + CRM terintegrasi untuk mengelola operasional toko bangunan — mulai dari stok & pembelian hingga penjualan, piutang, dan relasi pelanggan dalam satu platform.",
-    image: "/images/erp-plk.webp",
+    image: "/images/plk-hero.webp",
     modules: [
       "Manajemen Stok",
       "Pembelian & Supplier",
@@ -131,7 +131,7 @@ const clientProjects = [
     industry: "Konveksi",
     description:
       "Sistem ERP + CRM untuk bisnis konveksi — mengelola order produksi, bahan baku, progres jahit, hingga relasi pelanggan dalam satu dashboard.",
-    image: "/images/erp-askonveksi.webp",
+    image: "/images/askonveksi-hero.webp",
     modules: [
       "Manajemen Order",
       "Produksi & Progres",
