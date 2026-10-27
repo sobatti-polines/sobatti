@@ -1,5 +1,6 @@
 "use client"
 
+import SmoothScroll from "@/components/SmoothScroll"
 import Navbar from "@/components/Navbar"
 import Hero from "@/components/Hero"
 import About from "@/components/About"
@@ -15,9 +16,9 @@ import Footer from "@/components/Footer"
 
 export default function Home() {
   return (
-    <>
+    <SmoothScroll>
       <Navbar />
-      <main>
+      <main id="main-content" className="relative">
         <Hero />
         <About />
         <SobatValues />
@@ -30,7 +31,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </SmoothScroll>
   )
 }
-

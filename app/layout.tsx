@@ -1,24 +1,31 @@
 import type { Metadata } from "next"
-import { Inter, Outfit } from "next/font/google"
+import { Bricolage_Grotesque, Schibsted_Grotesk, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import "./globals.css"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-const inter = Inter({
+const schibsted = Schibsted_Grotesk({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "optional",
-});
+  display: "swap",
+})
 
-const outfit = Outfit({
+const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "optional",
-});
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+})
 
 const SITE_URL = "https://sobatti.web.id";
 const SITE_NAME = "SobatTi";
@@ -149,7 +156,15 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={cn("antialiased", "selection:bg-accent-blue", "selection:text-white", inter.variable, outfit.variable, "font-sans")}
+      className={cn(
+        "antialiased",
+        "selection:bg-accent-blue",
+        "selection:text-white",
+        schibsted.variable,
+        bricolage.variable,
+        jetbrainsMono.variable,
+        "font-sans"
+      )}
     >
       <body className="min-h-screen bg-background font-body text-foreground">
         <Script

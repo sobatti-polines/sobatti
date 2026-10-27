@@ -1,15 +1,23 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import SectionLabel from "./SectionLabel";
-import { Check, MessageCircle } from "lucide-react";
+import { useState, useRef } from "react"
+import Link from "next/link"
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useSpring,
+  useMotionValueEvent,
+} from "framer-motion"
+import { useLenis } from "lenis/react"
+import SectionLabel from "./SectionLabel"
+import { Check, MessageCircle, ArrowUpRight } from "lucide-react"
+import { useLenisPhysics } from "./SmoothScroll"
 
-const WA_NUMBER = "6285327072575";
+const WA_NUMBER = "6285327072575"
 
 function waLink(message: string) {
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`
 }
 
 const schoolPackages = [
@@ -67,7 +75,7 @@ const schoolPackages = [
     cta: "Pesan Paket SMA",
     highlighted: false,
   },
-];
+]
 
 const categories = [
   {
@@ -122,250 +130,325 @@ const categories = [
     label: "Maintenance",
     items: [{ name: "Maintenance", price: "Mulai Rp150.000/bulan" }],
   },
-];
-
-function BlockLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-4 mb-6 md:mb-8">
-      <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.2em] uppercase text-accent-orange">
-        {children}
-      </span>
-      <div className="h-px flex-1 bg-white/10" />
-    </div>
-  );
-}
+]
 
 function PriceRow({
   item,
   index,
 }: {
-  item: { name: string; price: string };
-  index: number;
+  readonly item: { name: string; price: string }
+  readonly index: number
 }) {
   const [prefix, ...rest] = item.price.startsWith("Mulai ")
     ? ["Mulai ", item.price.slice(6)]
-    : ["", item.price];
+    : ["", item.price]
 
   return (
     <motion.li
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, rotateX: -22, y: 16 }}
+      animate={{ opacity: 1, rotateX: 0, y: 0 }}
+      transition={{
+        duration: 0.42,
+        delay: index * 0.05,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="preserve-3d"
     >
       <a
-        href={waLink(`Halo SobatTi, saya mau tanya layanan "${item.name}" (${item.price}).`)}
+        href={waLink(
+          `Halo SobatTi, saya mau tanya layanan "${item.name}" (${item.price}).`
+        )}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex items-baseline justify-between gap-4 py-4 md:py-5 border-t border-white/[0.06] first:border-t-0 -mx-2 px-2 rounded-lg hover:bg-white/[0.03] transition-colors duration-200"
+        className="group flex items-baseline justify-between gap-6 py-4 md:py-5 border-b border-white/15 transition-all duration-300 hover:pl-4"
       >
-        <span className="font-sans text-[14px] sm:text-[16px] font-medium text-white/70 group-hover:text-white transition-colors duration-200">
+        <span className="font-display text-[17px] sm:text-[20px] font-bold text-white/85 group-hover:text-accent-orange transition-colors">
           {item.name}
         </span>
-        <span className="flex items-baseline gap-2 sm:gap-3 shrink-0">
-          <span className="font-display text-[16px] sm:text-[18px] font-normal text-white tabular-nums text-right">
-            {prefix && <span className="text-white/40 font-sans text-[13px] sm:text-[14px] mr-1">{prefix}</span>}
+
+        <span className="flex items-baseline gap-3 shrink-0">
+          <span className="font-display text-[18px] sm:text-[22px] font-extrabold text-white tabular-nums text-right">
+            {prefix && (
+              <span className="text-white/45 font-mono text-[11px] sm:text-[12px] uppercase tracking-wider mr-2 font-normal">
+                {prefix}
+              </span>
+            )}
             {rest.join("")}
           </span>
-          <MessageCircle className="w-[15px] h-[15px] sm:w-[16px] sm:h-[16px] text-white/25 group-hover:text-accent-orange transition-colors duration-200 translate-y-[2px]" />
+          <MessageCircle className="w-4 h-4 text-white/35 group-hover:text-accent-orange transition-transform duration-300 group-hover:scale-125 translate-y-[1px]" />
         </span>
       </a>
     </motion.li>
-  );
+  )
 }
 
 export default function Pricing() {
-  const [activeCategory, setActiveCategory] = useState(categories[0].id);
-  const current = categories.find((c) => c.id === activeCategory) ?? categories[0];
+  const [activeCategory, setActiveCategory] = useState(categories[0].id)
+  const ledgerRef = useRef<HTMLDivElement>(null)
+  const lenis = useLenis()
+  const { isHydrated, velocityRotateX } = useLenisPhysics()
+
+  const { scrollYProgress } = useScroll({
+    target: ledgerRef,
+    offset: ["start start", "end end"],
+  })
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 95,
+    damping: 26,
+    restDelta: 0.001,
+  })
+
+  useMotionValueEvent(smoothProgress, "change", (v) => {
+    const idx = Math.min(
+      categories.length - 1,
+      Math.max(0, Math.floor(v * categories.length))
+    )
+    const nextId = categories[idx]?.id
+    if (nextId) {
+      setActiveCategory((prev) => (prev !== nextId ? nextId : prev))
+    }
+  })
+
+  const handleCategorySelect = (catId: string, idx: number) => {
+    setActiveCategory(catId)
+    if (!ledgerRef.current || window.innerWidth < 1024) return
+    const rect = ledgerRef.current.getBoundingClientRect()
+    const sectionTop = window.scrollY + rect.top
+    const scrollable = ledgerRef.current.offsetHeight - window.innerHeight
+    const targetY =
+      sectionTop + scrollable * ((idx + 0.35) / categories.length)
+    if (lenis) {
+      lenis.scrollTo(targetY, { duration: 0.9 })
+    }
+  }
+
+  const current =
+    categories.find((c) => c.id === activeCategory) ?? categories[0]
 
   return (
-    <section id="pricing" className="bg-dark-surface section-padding">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+    <section
+      id="pricing"
+      className="bg-dark-surface text-white pt-24 md:pt-36 overflow-x-clip"
+    >
+      {/* ── PART 1: Open-Canvas Sculptural School Packages ── */}
+      <div className="mx-auto max-w-[1240px] px-4 sm:px-6 pb-24 md:pb-36 scene-3d-deep">
         <SectionLabel number="06" title="harga" dark />
 
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(28px,5vw,56px)] font-normal leading-[1.08] tracking-[-0.02em] text-white max-w-[700px] mb-12 md:mb-16"
-        >
+        <h2 className="font-display text-[clamp(30px,4vw,52px)] font-extrabold leading-[1.0] tracking-[-0.03em] text-white max-w-[760px] mb-14 md:mb-20">
           Investasi untuk{" "}
-          <span className="relative">
-            <span className="relative z-10 text-white">Masa Depan</span>
-            <span className="absolute inset-0 bg-accent-orange/30 -rotate-2 scale-y-110 scale-x-120" />
-          </span>{" "}
-          digital Anda
-        </motion.h2>
+          <span className="text-accent-orange">Masa Depan</span> digital Anda
+        </h2>
 
-        {/* ── Paket Les Sekolah ── */}
-        <BlockLabel>paket les sekolah</BlockLabel>
+        <div className="flex items-center gap-4 mb-12">
+          <span className="font-mono text-[12px] font-bold tracking-[0.24em] uppercase text-accent-orange">
+            /paket les sekolah
+          </span>
+          <div className="h-px flex-1 bg-white/15" />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-16 md:mb-24">
+        {/* Borderless 3-Column Architectural Split with 3D Hover Elevation */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-white/15 border-t border-b border-white/15 preserve-3d">
           {schoolPackages.map((plan, i) => (
             <motion.div
               key={plan.level}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: i * 0.12 }}
-              className={`group relative rounded-[16px] md:rounded-[20px] p-7 sm:p-8 md:p-10 border transition-all duration-300 flex flex-col ${
-                plan.highlighted
-                  ? "bg-dark-card border-accent-orange/40 shadow-[0_0_40px_rgba(235,96,3,0.08)]"
-                  : "bg-dark-card border-white/[0.06] hover:border-white/[0.12]"
-              }`}
+              whileHover={{ z: 36, y: -6 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className={`py-12 lg:py-14 ${
+                i === 0
+                  ? "lg:pr-10"
+                  : i === 1
+                    ? "lg:px-10"
+                    : "lg:pl-10"
+              } flex flex-col justify-between preserve-3d`}
             >
-              {plan.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.15em] uppercase text-white bg-accent-orange px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-full whitespace-nowrap">
-                    paling populer
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-4">
+                  <span
+                    className={`font-mono text-[12px] font-bold tracking-[0.22em] uppercase ${
+                      plan.highlighted ? "text-accent-orange" : "text-white/60"
+                    }`}
+                  >
+                    /{plan.name}
                   </span>
+
+                  {plan.highlighted && (
+                    <span className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-accent-orange border-b border-accent-orange pb-0.5">
+                      paling populer
+                    </span>
+                  )}
                 </div>
-              )}
 
-              <div className="mb-3 md:mb-4">
-                <span
-                  className={`font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.2em] uppercase ${
-                    plan.highlighted ? "text-accent-orange" : "text-accent-blue"
-                  }`}
-                >
-                  {plan.name}
-                </span>
-              </div>
-
-              <div className="mb-4 md:mb-6">
-                <span className="font-sans text-[13px] sm:text-[14px] font-semibold text-white/60">
+                <div className="font-sans text-[15px] font-semibold text-white/65 mb-6">
                   {plan.subtitle}
-                </span>
-              </div>
+                </div>
 
-              <div className="mb-2">
-                <span className="font-display text-[32px] sm:text-[36px] md:text-[44px] font-normal leading-[1.00] tracking-[-0.02em] text-white">
-                  {plan.price}
-                </span>
-                {plan.period && (
-                  <span className="font-sans text-[13px] sm:text-[14px] font-medium text-white/40 ml-1">
+                {/* Monumental Price Figure */}
+                <div
+                  style={{ transform: "translateZ(18px)" }}
+                  className="mb-5 flex items-baseline gap-2 preserve-3d"
+                >
+                  <span
+                    className={`font-display text-[clamp(30px,3.2vw,44px)] font-extrabold leading-none tracking-[-0.035em] tabular-nums ${
+                      plan.highlighted ? "text-accent-orange" : "text-white"
+                    }`}
+                  >
+                    {plan.price}
+                  </span>
+                  <span className="font-mono text-[12px] text-white/45">
                     {plan.period}
                   </span>
-                )}
+                </div>
+
+                <p className="font-body text-[15.5px] leading-[1.7] text-white/70 mb-3">
+                  {plan.description}
+                </p>
+
+                <p className="font-mono text-[12px] text-white/45 mb-8">
+                  Untuk: {plan.target}
+                </p>
+
+                <ul className="space-y-3.5 mb-10 border-t border-white/10 pt-6">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <Check
+                        className={`w-4 h-4 mt-1 shrink-0 ${
+                          plan.highlighted
+                            ? "text-accent-orange"
+                            : "text-accent-blue"
+                        }`}
+                      />
+                      <span className="font-sans text-[15px] font-medium text-white/85">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <p className="font-body text-[15px] sm:text-[17px] leading-[1.7] text-white/45 mb-3">
-                {plan.description}
-              </p>
-
-              <p className="font-body text-[13px] sm:text-[14px] leading-[1.6] text-white/30 mb-6 md:mb-8 italic">
-                Untuk: {plan.target}
-              </p>
-
-              <div className="rule-dark mb-6 md:mb-8" />
-
-              <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10 flex-1">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check
-                      className={`w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] mt-0.5 shrink-0 ${
-                        plan.highlighted ? "text-accent-orange" : "text-accent-blue"
-                      }`}
-                    />
-                    <span className="font-sans text-[14px] sm:text-[15px] font-medium text-white/65">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
               <Link
-                href={waLink(`Halo SobatTi, saya mau tanya ${plan.name} (${plan.price}${plan.period}).`)}
+                href={waLink(
+                  `Halo SobatTi, saya mau tanya ${plan.name} (${plan.price}${plan.period}).`
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`btn w-full !py-3.5 !px-6 ${
+                className={`btn w-full ${
                   plan.highlighted
-                    ? "bg-accent-orange text-white border-accent-orange hover:bg-hover-orange hover:border-hover-orange"
-                    : "bg-transparent text-white border-white/15 hover:bg-white/10"
+                    ? "btn-orange"
+                    : "bg-transparent text-white border border-white/25 hover:bg-white hover:text-dark-surface"
                 }`}
               >
-                {plan.cta}
+                <span>{plan.cta}</span>
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
             </motion.div>
           ))}
         </div>
+      </div>
 
-        {/* ── Daftar Harga Lengkap ── */}
-        <BlockLabel>daftar harga lengkap</BlockLabel>
+      {/* ── PART 2: Pinned Borderless 3D Typographic Rate Ledger ── */}
+      <div ref={ledgerRef} className="relative lg:h-[260vh]">
+        <div className="lg:sticky lg:top-0 lg:h-screen flex flex-col justify-center pt-28 pb-12 overflow-hidden scene-3d-deep">
+          <div className="mx-auto max-w-[1240px] w-full px-4 sm:px-6">
+            <div className="flex items-center gap-4 mb-8">
+              <span className="font-mono text-[11px] font-bold tracking-[0.24em] uppercase text-accent-orange">
+                /daftar harga lengkap
+              </span>
+              <div className="h-px flex-1 bg-white/15" />
+            </div>
 
-        <motion.h3
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(22px,3.5vw,36px)] font-normal leading-[1.15] tracking-[-0.02em] text-white max-w-[600px] mb-8 md:mb-10"
-        >
-          Pilih layanan sesuai kebutuhan Anda
-        </motion.h3>
-
-        {/* Tabs */}
-        <div
-          className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 md:mb-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          role="tablist"
-          aria-label="Kategori layanan"
-        >
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              role="tab"
-              aria-selected={activeCategory === cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.08em] uppercase px-4 sm:px-5 py-2.5 sm:py-3 rounded-full border whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 focus-visible:ring-offset-dark-surface ${
-                activeCategory === cat.id
-                  ? "bg-accent-orange text-white border-accent-orange"
-                  : "bg-transparent text-white/50 border-white/15 hover:text-white hover:border-white/30"
-              }`}
+            <motion.div
+              style={isHydrated ? { rotateX: velocityRotateX } : undefined}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start preserve-3d"
             >
-              {cat.label}
-            </button>
-          ))}
-        </div>
+              {/* Left — Bare Typographic Category Switcher */}
+              <div className="lg:col-span-5">
+                <h3 className="font-display text-[clamp(22px,2.8vw,34px)] font-bold leading-[1.1] tracking-[-0.025em] text-white mb-6">
+                  Pilih layanan sesuai kebutuhan Anda
+                </h3>
 
-        {/* Tab content */}
-        <div className="bg-dark-card border border-white/[0.06] rounded-[16px] md:rounded-[20px] p-6 sm:p-8 md:p-10">
-          <AnimatePresence mode="wait">
-            <motion.ul
-              key={current.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {current.items.map((item, i) => (
-                <PriceRow key={item.name} item={item} index={i} />
-              ))}
-            </motion.ul>
-          </AnimatePresence>
-        </div>
+                <div
+                  className="flex lg:flex-col gap-4 lg:gap-2.5 overflow-x-auto pb-3 lg:pb-0 hide-scrollbar"
+                  role="tablist"
+                  aria-label="Kategori layanan"
+                >
+                  {categories.map((cat, idx) => {
+                    const isSelected = activeCategory === cat.id
+                    return (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={isSelected}
+                        onClick={() => handleCategorySelect(cat.id, idx)}
+                        className={`group flex items-baseline gap-3.5 text-left whitespace-nowrap transition-all duration-300 cursor-pointer focus-visible:outline-none ${
+                          isSelected
+                            ? "lg:translate-x-2"
+                            : "opacity-45 hover:opacity-85"
+                        }`}
+                      >
+                        <span className="font-mono text-[11px] text-accent-orange font-bold">
+                          /0{idx + 1}
+                        </span>
+                        <span
+                          className={`font-display text-[19px] sm:text-[22px] font-extrabold tracking-[-0.02em] ${
+                            isSelected ? "text-accent-orange" : "text-white"
+                          }`}
+                        >
+                          {cat.label}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
 
-        {/* ── Footnote + CTA ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-8 md:mt-10 flex flex-col md:flex-row md:items-center justify-between gap-6"
-        >
-          <p className="font-body text-[13px] sm:text-[14px] leading-[1.7] text-white/35 max-w-[640px]">
-            Harga bersifat mulai dari — disesuaikan dengan kompleksitas & ruang
-            lingkup pekerjaan. Hosting, domain, komponen hardware, dan transport
-            tidak termasuk dalam harga di atas.
-          </p>
-          <Link
-            href={waLink("Halo SobatTi, saya mau minta penawaran untuk layanan yang tersedia.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn bg-accent-orange text-white border border-accent-orange hover:bg-hover-orange hover:border-hover-orange hover:-translate-y-px shrink-0 !py-[14px] !px-8"
-          >
-            Minta Penawaran
-          </Link>
-        </motion.div>
+              {/* Right — Frameless 3D Rate Lines */}
+              <div className="lg:col-span-7 flex flex-col justify-between preserve-3d">
+                <div className="border-t border-white/15 preserve-3d">
+                  <AnimatePresence mode="wait">
+                    <motion.ul
+                      key={current.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.22 }}
+                      className="preserve-3d"
+                    >
+                      {current.items.map((item, i) => (
+                        <PriceRow key={item.name} item={item} index={i} />
+                      ))}
+                    </motion.ul>
+                  </AnimatePresence>
+                </div>
+
+                {/* Footnote + CTA */}
+                <div className="mt-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                  <p className="font-body text-[13.5px] leading-[1.7] text-white/50 max-w-[460px]">
+                    Harga bersifat mulai dari — disesuaikan dengan kompleksitas
+                    &amp; ruang lingkup pekerjaan. Hosting, domain, komponen
+                    hardware, dan transport tidak termasuk dalam harga di atas.
+                  </p>
+                  <Link
+                    href={waLink(
+                      "Halo SobatTi, saya mau minta penawaran untuk layanan yang tersedia."
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-orange shrink-0"
+                  >
+                    <span>Minta Penawaran</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
-  );
+  )
 }

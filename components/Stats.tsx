@@ -1,6 +1,13 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useRef } from "react"
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion"
+import { useLenisPhysics } from "./SmoothScroll"
 
 const stats = [
   { value: "50+", label: "materi" },
@@ -10,36 +17,97 @@ const stats = [
 ]
 
 export default function Stats() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { isHydrated, velocityRotateX } = useLenisPhysics()
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  })
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 26,
+    restDelta: 0.001,
+  })
+
+  // 3D Spatial Ribbon Glide
+  const ribbonX = useTransform(smoothProgress, [0, 1], ["10%", "-12%"])
+  const ribbonRotateY = useTransform(smoothProgress, [0, 0.5, 1], [-10, 0, 10])
+
   return (
-    <section className="bg-dark-surface section-padding overflow-hidden">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-0">
+    <section
+      ref={sectionRef}
+      className="relative py-24 md:py-36 bg-dark-surface text-white overflow-hidden scene-3d-deep"
+    >
+      {/* Top Hairline */}
+      <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
+        <div className="h-px w-full bg-white/12 mb-16 md:mb-24" />
+      </div>
+
+      {/* Desktop 3D Kinetic Ribbon */}
+      <div className="hidden lg:flex items-center justify-center scene-3d-deep">
+        <motion.div
+          style={
+            isHydrated
+              ? {
+                  x: ribbonX,
+                  rotateY: ribbonRotateY,
+                  rotateX: velocityRotateX,
+                }
+              : undefined
+          }
+          className="flex items-end gap-14 xl:gap-24 preserve-3d whitespace-nowrap px-8"
+        >
           {stats.map((stat, i) => (
-            <motion.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`text-center py-6 md:py-10 ${
-                i < stats.length - 1 ? "lg:border-r lg:border-white/[0.06]" : ""
-              } ${
-                i % 2 === 0 && i < stats.length - 1 ? "md:border-r md:border-white/[0.06]" : ""
-              } ${
-                i === 0 ? "border-r border-white/[0.06] md:border-r-0" : ""
-              } ${
-                i === 1 ? "border-b border-white/[0.06] md:border-b-0" : ""
+              style={{
+                transform: `translateZ(${i % 2 === 0 ? "24px" : "-12px"})`,
+              }}
+              className="flex flex-col preserve-3d"
+            >
+              <span
+                className={`font-display text-[clamp(44px,5.4vw,76px)] font-extrabold leading-[0.92] tracking-[-0.04em] tabular-nums ${
+                  i % 2 === 1 ? "text-accent-orange" : "text-white"
+                }`}
+              >
+                {stat.value}
+              </span>
+              <span className="mt-3 font-mono text-[12px] font-bold tracking-[0.2em] uppercase text-white/60">
+                /0{i + 1} · {stat.label}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Mobile / Tablet Open Typographic Grid */}
+      <div className="lg:hidden mx-auto max-w-[760px] px-4 sm:px-6 grid grid-cols-2 gap-y-12 gap-x-8">
+        {stats.map((stat, i) => (
+          <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.08 }}
+          >
+            <div
+              className={`font-display text-[clamp(48px,12vw,76px)] font-extrabold leading-[0.9] tracking-[-0.04em] tabular-nums ${
+                i % 2 === 1 ? "text-accent-orange" : "text-white"
               }`}
             >
-              <div className="font-display text-[clamp(28px,6vw,56px)] font-normal leading-[1.00] tracking-[-0.02em] text-white">
-                {stat.value}
-              </div>
-              <div className="mt-2 md:mt-3 font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.18em] uppercase text-white/30">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              {stat.value}
+            </div>
+            <div className="mt-2 font-mono text-[11px] font-semibold tracking-[0.2em] uppercase text-white/55">
+              {stat.label}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
+        <div className="h-px w-full bg-white/12 mt-16 md:mt-24" />
       </div>
     </section>
   )

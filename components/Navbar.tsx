@@ -1,153 +1,227 @@
 "use client"
 
 import Link from "next/link"
-import { motion, useScroll, useMotionValueEvent } from "framer-motion"
-import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
 import Image from "next/image"
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useMotionValueEvent,
+  AnimatePresence,
+} from "framer-motion"
+import { useState, useEffect } from "react"
+import { Menu, X, ArrowUpRight } from "lucide-react"
+import { useLenis } from "lenis/react"
 
 const navLinks = [
   { href: "#about", label: "Tentang" },
   { href: "#audience", label: "Untuk Siapa" },
   { href: "#services", label: "Layanan" },
+  { href: "#portfolio", label: "Portofolio" },
   { href: "#pricing", label: "Harga" },
   { href: "#contact", label: "Kontak" },
 ]
 
 export default function Navbar() {
-  const { scrollY } = useScroll()
+  const { scrollY, scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  })
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
+  const lenis = useLenis()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 50)
+    setScrolled(latest > 40)
   })
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
+    const handleScrollSpy = () => {
+      const scrollPosition = window.scrollY + window.innerHeight * 0.4
+      let current = ""
+
+      for (const link of navLinks) {
+        const id = link.href.replace("#", "")
+        const el = document.getElementById(id)
+        if (el) {
+          const top = el.offsetTop
+          const height = el.offsetHeight
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            current = id
           }
-        })
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
-    )
+        }
+      }
+      setActiveSection(current)
+    }
 
-    navLinks.forEach((link) => {
-      const id = link.href.replace("#", "")
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
+    handleScrollSpy()
+    window.addEventListener("scroll", handleScrollSpy, { passive: true })
+    return () => window.removeEventListener("scroll", handleScrollSpy)
   }, [])
+
+  const scrollToTarget = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    setMobileOpen(false)
+    if (href.startsWith("#")) {
+      const target = document.querySelector(href) as HTMLElement | null
+      if (target && lenis) {
+        e.preventDefault()
+        lenis.scrollTo(target, { duration: 1.35 })
+      }
+    }
+  }
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-sm"
-          : "bg-transparent"
-        }`}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 pointer-events-none"
     >
-      <div className="mx-auto flex h-[64px] md:h-[72px] max-w-[1200px] items-center justify-between px-4 sm:px-6">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-dark-surface hover:bg-[#141519] border border-white/10 hover:border-accent-orange/40 transition-all duration-200 shadow-md group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange"
-          onClick={() => setMobileOpen(false)}
-        >
-          <Image
-            src="/logo_sobti.webp"
-            alt="SobatTi Mentoring & Project Coaching"
-            width={130}
-            height={36}
-            className="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105"
-            priority
-          />
-        </Link>
+      <div
+        className={`pointer-events-auto mx-auto max-w-[1240px] rounded-full transition-all duration-500 relative overflow-hidden ${
+          scrolled
+            ? "bg-dark-surface/90 backdrop-blur-xl border border-white/12 shadow-[0_20px_50px_-15px_rgba(10,11,13,0.5)]"
+            : "bg-dark-surface/85 backdrop-blur-md border border-white/10"
+        }`}
+      >
+        <div className="flex h-[58px] md:h-[64px] items-center justify-between px-3 sm:px-4 md:px-5">
+          {/* Logo */}
+          <Link
+            href="/"
+            onClick={(e) => {
+              setMobileOpen(false)
+              if (lenis) {
+                e.preventDefault()
+                lenis.scrollTo(0, { duration: 1.25 })
+              }
+            }}
+            className="flex items-center px-2.5 py-1 rounded-full transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange"
+          >
+            <Image
+              src="/logo_sobti.webp"
+              alt="SobatTi Mentoring & Project Coaching"
+              width={126}
+              height={34}
+              className="h-6 sm:h-7 w-auto object-contain"
+              priority
+            />
+          </Link>
 
-        {/* Centered Nav — desktop only */}
-        <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-          {navLinks.map((link) => {
-            const id = link.href.replace("#", "")
-            const isActive = activeSection === id
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-sans text-[14px] font-semibold px-4 py-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 ${
-                  isActive
-                    ? "text-accent-orange bg-cool-gray/60"
-                    : "text-foreground/50 hover:text-foreground hover:bg-cool-gray/60"
-                }`}
-              >
-                {link.label}
-              </Link>
-            )
-          })}
-        </nav>
+          {/* Center Nav */}
+          <nav
+            aria-label="Navigasi Utama"
+            className="hidden lg:flex items-center gap-1"
+          >
+            {navLinks.map((link) => {
+              const id = link.href.replace("#", "")
+              const isActive = activeSection === id
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => scrollToTarget(e, link.href)}
+                  className={`relative font-sans text-[13.5px] font-semibold px-4 py-2 rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange ${
+                    isActive
+                      ? "text-white"
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="navbar-active-pill"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 32,
+                      }}
+                      className="absolute inset-0 rounded-full bg-white/12"
+                    />
+                  )}
+                  <span className="relative z-10">{link.label}</span>
+                </Link>
+              )
+            })}
+          </nav>
 
-        {/* Desktop CTA */}
-        <Link href="#contact" className="btn btn-primary !py-3 !px-6 !text-[14px] !hidden md:!inline-flex">
-          Mulai Sekarang
-        </Link>
+          {/* Desktop CTA */}
+          <Link
+            href="#contact"
+            onClick={(e) => scrollToTarget(e, "#contact")}
+            className="hidden lg:inline-flex btn btn-orange !py-2.5 !px-5 !text-[13.5px] group"
+          >
+            <span>Mulai Sekarang</span>
+            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden p-3 -mr-2 rounded-full hover:bg-cool-gray/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+          {/* Mobile Hamburger */}
+          <button
+            type="button"
+            className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Tutup menu" : "Buka menu"}
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {/* Hairline Progress */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent-orange origin-left"
+          style={{ scaleX }}
+        />
       </div>
 
-      {/* Mobile menu overlay */}
-      <motion.div
-        initial={false}
-        animate={{
-          height: mobileOpen ? "auto" : 0,
-          opacity: mobileOpen ? 1 : 0,
-        }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="md:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-foreground/[0.06]"
-      >
-        <nav className="flex flex-col px-4 py-6 gap-1">
-          {navLinks.map((link) => {
-            const id = link.href.replace("#", "")
-            const isActive = activeSection === id
-            return (
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -14, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -14, scale: 0.97 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-auto lg:hidden mt-2 mx-auto max-w-[1240px] rounded-[28px] bg-dark-surface/95 backdrop-blur-2xl border border-white/12 p-6 shadow-2xl"
+          >
+            <nav className="flex flex-col gap-1">
+              {navLinks.map((link) => {
+                const id = link.href.replace("#", "")
+                const isActive = activeSection === id
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => scrollToTarget(e, link.href)}
+                    className={`font-display text-[22px] font-bold px-4 py-3 rounded-2xl transition-colors ${
+                      isActive
+                        ? "text-accent-orange bg-white/[0.06]"
+                        : "text-white/80 hover:text-white hover:bg-white/[0.04]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
+            </nav>
+
+            <div className="mt-5 pt-5 border-t border-white/10">
               <Link
-                key={link.href}
-                href={link.href}
-                className={`font-sans text-[16px] font-semibold px-4 py-3 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-orange focus-visible:ring-offset-2 ${
-                  isActive
-                    ? "text-foreground bg-cool-gray/60"
-                    : "text-foreground/70 hover:text-foreground hover:bg-cool-gray/60"
-                }`}
-                onClick={() => setMobileOpen(false)}
+                href="#contact"
+                onClick={(e) => scrollToTarget(e, "#contact")}
+                className="btn btn-orange w-full !py-3.5 !text-[15px]"
               >
-                {link.label}
+                <span>Mulai Sekarang</span>
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
-            )
-          })}
-          <div className="pt-4">
-            <Link
-              href="#contact"
-              className="btn btn-primary w-full !py-3.5 !text-[15px]"
-              onClick={() => setMobileOpen(false)}
-            >
-              mulai sekarang
-            </Link>
-          </div>
-        </nav>
-      </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   )
 }
